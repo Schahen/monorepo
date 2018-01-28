@@ -14,3 +14,19 @@ lessCompile {
     source = file('src/main/less')
     target = file("${project.buildDir}/css")
 }
+
+
+task compilePug (type:Exec) {
+  commandLine "node", "node_modules/pug-cli/index.js",  "src/main/pug/", "-o", "${project.buildDir}"
+}
+
+
+task build {}
+
+
+build.dependsOn 'compilePug'
+build.dependsOn 'lessCompile'
+build.dependsOn 'compileTypeScript'
+
+
+defaultTasks 'build'

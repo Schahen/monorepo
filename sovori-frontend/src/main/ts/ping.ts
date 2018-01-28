@@ -1,4 +1,5 @@
 
 let main = () => {
-    console.log("HEY!!!");
 }
+
+window.onload = main;

@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "pug-cli": "^1.0.0-alpha6",
     "typescript": "^2.6.2"
   }
 }

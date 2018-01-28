@@ -7,3 +7,10 @@ plugins {
 compileTypeScript {
 	sourcemap = true
 }
+
+
+task build {}
+
+build.dependsOn 'compileTypeScript'
+
+defaultTasks 'build'
