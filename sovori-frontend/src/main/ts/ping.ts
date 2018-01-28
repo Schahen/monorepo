@@ -1,5 +1,6 @@
 
-let main = () => {
+
+export class Ping {
+
 }
 
-window.onload = main;

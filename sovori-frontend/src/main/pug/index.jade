@@ -2,7 +2,8 @@ head
   title SOVORI
 
   link(rel="stylesheet", type="text/css", href="/css/all.css")
-  script(src="/ts/ping.js")
+  script(src="/ts/app.js", type="module")
 body
-  script alert("INLINLE")
-  h1 HEY HEY!!!!!!!
+  #app
+    span(v-bind:title="message") {{ message }}
+
