@@ -1,0 +1,13 @@
+
+
+allprojects {
+
+  repositories {
+    mavenCentral()
+  }
+
+  configurations.all {
+    transitive = false
+  }
+}
+
