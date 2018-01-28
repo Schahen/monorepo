@@ -2,8 +2,15 @@
 plugins {
   id "com.moowork.node" version "0.12"
   id "de.richsource.gradle.plugins.typescript" version "1.8.0"
+  id "com.github.voplex95.lesscompiler" version "1.0.3"
 }
 
 compileTypeScript {
 	sourcemap = true
+}
+
+
+lessCompile {
+    source = file('src/main/less')
+    target = file("${project.buildDir}/css")
 }
