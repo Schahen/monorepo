@@ -4,6 +4,9 @@ head
   link(rel="stylesheet", type="text/css", href="/app/css/all.css")
   script(src="/app/ts/app.js", type="module")
 body
-  #app
-    span(v-bind:title="message") {{ message }}
+  #content
+    .question-container
+      .question-input#question
+    .answer-container
+      textarea#answer.answer-input
 
