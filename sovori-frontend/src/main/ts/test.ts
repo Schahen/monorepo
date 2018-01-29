@@ -17,8 +17,37 @@ export class Test {
     private initEvents() {
         this.answerElement.addEventListener("keydown", evt => {
             if (evt.metaKey) {
+                if (evt.altKey) {
+                    let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
+                    if (evt.code == "KeyS") {
+                        evt.preventDefault();
+                        if (this.answerElement.value.endsWith("sch")) {
+                            this.answerElement.value = this.answerElement.value.replace(/sch$/, 'ß');
+                        } else {
+                            this.answerElement.value += isUppercase ? 'Sch' : 'sch';
+                        }
+                    } else if (evt.code == "KeyT") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Tsch' : 'tsch';
+                    } else if (evt.code == "KeyO") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Ö' : 'ö';
+                    } else if (evt.code == "KeyU") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Ü' : 'ü';
+                    } else if (evt.code == "KeyA") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Ä' : 'ä';
+                    } else if (evt.code == "KeyX") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Ch' : 'ch';
+                    } else if (evt.code == "KeyE") {
+                        evt.preventDefault();
+                        this.answerElement.value += isUppercase ? 'Ei' : 'ei';
+                    }
+                }
                 if (evt.code == "Period") {
-                  this.ask();
+                    this.ask();
                 } else if (evt.code === "Slash") {
                     this.hint();
                 } else if (evt.key === "Enter") {
