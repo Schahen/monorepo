@@ -14,6 +14,18 @@ export class Test {
     this.initEvents();
   }
 
+  private getValue():string {
+    return this.answerElement.value;
+  }
+
+  private setValue(value: string) {
+    this.answerElement.value = value;
+  }
+
+  private updateValue(tail: string) {
+    this.setValue(this.getValue() + tail);
+  }
+
   private initEvents() {
     this.answerElement.addEventListener("keydown", evt => {
       if (evt.metaKey) {
@@ -22,31 +34,31 @@ export class Test {
           if (evt.code == "KeyS") {
             evt.preventDefault();
             if (this.answerElement.value.endsWith("sch")) {
-              this.answerElement.value = this.answerElement.value.replace(/sch$/, 'ß');
+              this.setValue(this.getValue().replace(/sch$/, 'ß'))
             } else {
-              this.answerElement.value += isUppercase ? 'Sch' : 'sch';
+              this.updateValue(isUppercase ? 'Sch' : 'sch');
             }
           } else if (evt.code == "KeyT") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Tsch' : 'tsch';
+            this.updateValue(isUppercase ? 'Tsch' : 'tsch');
           } else if (evt.code == "KeyO") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Ö' : 'ö';
+            this.updateValue(isUppercase ? 'Ö' : 'ö');
           } else if (evt.code == "KeyU") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Ü' : 'ü';
+            this.updateValue(isUppercase ? 'Ü' : 'ü');
           } else if (evt.code == "KeyA") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Ä' : 'ä';
+            this.updateValue(isUppercase ? 'Ä' : 'ä');
           } else if (evt.code == "KeyX") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Ch' : 'ch';
+            this.updateValue(isUppercase ? 'Ch' : 'ch');
           } else if (evt.code == "KeyE") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Ei' : 'ei';
+            this.updateValue(isUppercase ? 'Ei' : 'ei');
           } else if (evt.code == "KeyJ") {
             evt.preventDefault();
-            this.answerElement.value += isUppercase ? 'Äu' : 'äu';
+            this.updateValue(isUppercase ? 'Äu' : 'äu');
           }
         }
         if (evt.code == "Period") {
@@ -54,7 +66,7 @@ export class Test {
         } else if (evt.code === "Slash") {
           this.hint();
         } else if (evt.key === "Enter") {
-          this.check(this.answerElement.value);
+          this.check(this.getValue());
         }
       }
     });
@@ -77,13 +89,13 @@ export class Test {
 
   private hint() {
     if (this.currentQuestion) {
-      this.answerElement.value = this.currentQuestion.a;
+      this.setValue(this.currentQuestion.a);
     }
   }
 
   ask() {
     this.currentQuestion = this.nextQuestion();
-    this.answerElement.value = "";
+    this.setValue("");
     this.questionElement.textContent = this.currentQuestion.q;
     this.answerElement.focus();
   }
