@@ -18,8 +18,8 @@ export class Test {
   }
 
   private initEvents() {
-    this.answerElement.addEventListener("keydown", evt => {
-      console.log(window.getSelection().getRangeAt(0));
+    this.answerElement.addEventListener("keydown", (event) => {
+      const evt = <KeyboardEvent> event;
       if (evt.metaKey) {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
