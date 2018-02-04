@@ -3,23 +3,33 @@ import {DataRecord} from "./data_loader.js";
 export class Test {
   data: DataRecord[] = [];
   questionElement: Element;
-  answerElement: HTMLTextAreaElement;
+  answerElement: HTMLDivElement;
   private currentQuestion: DataRecord;
 
   constructor(data: DataRecord[]) {
     this.data = data;
     this.questionElement = <Element><any>document.getElementById("question");
-    this.answerElement = <HTMLTextAreaElement><any>document.getElementById("answer");
+    this.answerElement = <HTMLDivElement><any>document.getElementById("answer");
 
     this.initEvents();
   }
 
-  private getValue():string {
-    return this.answerElement.value;
+  private getValue(): string {
+    return this.answerElement.textContent || '';
+  }
+
+  private refocus(el: HTMLElement) {
+    let range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    let sel = window.getSelection();
+    sel.removeAllRanges()
+    sel.addRange(range);
   }
 
   private setValue(value: string) {
-    this.answerElement.value = value;
+    this.answerElement.textContent = value;
+    this.refocus(this.answerElement);
   }
 
   private updateValue(tail: string) {
@@ -33,7 +43,7 @@ export class Test {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
           if (evt.code == "KeyS") {
             evt.preventDefault();
-            if (this.answerElement.value.endsWith("sch")) {
+            if (this.getValue().endsWith("sch")) {
               this.setValue(this.getValue().replace(/sch$/, 'ß'))
             } else {
               this.updateValue(isUppercase ? 'Sch' : 'sch');
