@@ -16,6 +16,7 @@ export class Editor {
 
       this._eventsHandler.trigger(new CustomEvent("editorKeyDown", {detail: {
           code: evt.code,
+          key: evt.key,
           metaKey: evt.metaKey,
           shiftKey: evt.shiftKey
         }}));

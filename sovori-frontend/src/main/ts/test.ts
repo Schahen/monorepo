@@ -1,18 +1,25 @@
 import {DataRecord} from "./data_loader.js";
 import {Editor} from "./editor.js";
+import {Statistics} from "./Statistics.js";
 
 export class Test {
   data: DataRecord[] = [];
   questionElement: Element;
   answerEditor: Editor;
+  stats: Statistics;
   private currentQuestion: DataRecord;
 
   constructor(data: DataRecord[]) {
     this.data = data;
     this.questionElement = <Element><any>document.getElementById("question");
 
+    this.stats = new Statistics();
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
     this.initEvents();
+  }
+
+  private showStats() {
+    console.log(`total: ${this.stats.total}: ${this.stats.wrong}:${this.stats.right}`)
   }
 
   private initEvents() {
@@ -30,12 +37,16 @@ export class Test {
     });
 
     this.answerEditor.eventsManager.listen("rightAnswer", () => {
+      this.stats.registerRight();
       this.questionElement.classList.add("is-correct");
+      this.showStats();
       this.ask();
     })
 
     this.answerEditor.eventsManager.listen("wrongAnswer", () => {
+      this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
+      this.showStats();
     })
   }
 
