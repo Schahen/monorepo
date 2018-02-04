@@ -7,6 +7,46 @@ export class Editor {
 
   constructor(private element: Element) {
     this._eventsHandler = new CustomDomEvent(element);
+    this.initEvents();
+  }
+
+  private initEvents() {
+    this.element.addEventListener("keydown", (event: Event) => {
+      const evt = <KeyboardEvent> event;
+      if (evt.metaKey) {
+        if (evt.altKey) {
+          let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
+          if (evt.code == "KeyS") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Sch' : 'sch');
+          } else if (evt.code == "KeyT") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Tsch' : 'tsch');
+          } else if (evt.code == "KeyO") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ö' : 'ö');
+          } else if (evt.code == "KeyU") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ü' : 'ü');
+          } else if (evt.code == "KeyA") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ä' : 'ä');
+          } else if (evt.code == "KeyC") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ch' : 'ch');
+          } else if (evt.code == "KeyX") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ch' : 'ch');
+          } else if (evt.code == "KeyE") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ei' : 'ei');
+          } else if (evt.code == "KeyJ") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Äu' : 'äu');
+          }
+        }
+      }
+    })
   }
 
   insertFragment(fragment: string, range?: Range) {
