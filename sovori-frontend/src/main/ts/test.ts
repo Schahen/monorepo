@@ -60,9 +60,9 @@ export class Test {
     return new Question(testRecord);
   }
 
-  private check(answer: string) {
+  private check(givenAnswer: string) {
     if (this.currentQuestion) {
-      if (answer !== this.currentQuestion.answer) {
+      if (this.currentQuestion.check(givenAnswer)) {
         this.triggerEvent("wrongAnswer");
       } else {
         this.triggerEvent("rightAnswer");
