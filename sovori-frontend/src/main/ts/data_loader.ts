@@ -1,4 +1,4 @@
-export class DataRecord {
+export class TestRecord {
   q: string;
   a: string;
 
@@ -8,7 +8,7 @@ export class DataRecord {
 }
 
 export class DataLoaderResponse {
-  data: DataRecord[];
+  data: TestRecord[];
 }
 
 export default class DataLoader {

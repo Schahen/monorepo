@@ -1,15 +1,15 @@
-import {DataRecord} from "./data_loader.js";
+import {TestRecord} from "./data_loader.js";
 import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
 
 export class Test {
-  data: DataRecord[] = [];
+  data: TestRecord[] = [];
   questionElement: Element;
   answerEditor: Editor;
   stats: Statistics;
-  private currentQuestion: DataRecord;
+  private currentQuestion: TestRecord;
 
-  constructor(data: DataRecord[]) {
+  constructor(data: TestRecord[]) {
     this.data = data;
     this.questionElement = <Element><any>document.getElementById("question");
 
@@ -54,7 +54,7 @@ export class Test {
     this.answerEditor.eventsManager.trigger(new CustomEvent(eventName));
   }
 
-  private nextQuestion(): DataRecord {
+  private nextQuestion(): TestRecord {
     return this.data[Math.floor(Math.random() * this.data.length)]
   }
 
