@@ -1,8 +1,12 @@
+import {CustomDomEvent} from "./customDomEvent.js";
 
 
 export class Editor {
 
+  private _eventsHandler: CustomDomEvent
+
   constructor(private element: Element) {
+    this._eventsHandler = new CustomDomEvent(element);
   }
 
   insertFragment(fragment: string, range?: Range) {
@@ -31,5 +35,9 @@ export class Editor {
     return this.element.textContent || '';
   }
 
+
+  get eventsManager(): CustomDomEvent {
+    return this._eventsHandler;
+  }
 }
 

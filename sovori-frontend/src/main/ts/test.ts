@@ -61,6 +61,19 @@ export class Test {
         }
       }
     });
+
+    this.answerEditor.eventsManager.listen("rightAnswer", () => {
+      this.questionElement.classList.add("is-correct");
+      this.ask();
+    })
+
+    this.answerEditor.eventsManager.listen("wrongAnswer", () => {
+      this.questionElement.classList.add("is-incorrect");
+    })
+  }
+
+  private triggerEvent(eventName: 'rightAnswer' | 'wrongAnswer') {
+    this.answerEditor.eventsManager.trigger(new CustomEvent(eventName));
   }
 
   private nextQuestion(): DataRecord {
@@ -70,10 +83,9 @@ export class Test {
   private check(answer: string) {
     if (this.currentQuestion) {
       if (answer !== this.currentQuestion.a) {
-        this.questionElement.classList.add("is-incorrect");
+        this.triggerEvent("wrongAnswer");
       } else {
-        this.questionElement.classList.add("is-correct");
-        this.ask();
+        this.triggerEvent("rightAnswer");
       }
     }
   }
