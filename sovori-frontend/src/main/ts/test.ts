@@ -1,9 +1,11 @@
 import {DataRecord} from "./data_loader.js";
+import {Editor} from "./editor.js";
 
 export class Test {
   data: DataRecord[] = [];
   questionElement: Element;
-  answerElement: HTMLDivElement;
+  answerElement: Element;
+  answerEditor: Editor;
   private currentQuestion: DataRecord;
 
   constructor(data: DataRecord[]) {
@@ -11,64 +13,43 @@ export class Test {
     this.questionElement = <Element><any>document.getElementById("question");
     this.answerElement = <HTMLDivElement><any>document.getElementById("answer");
 
+    this.answerEditor = new Editor(<HTMLDivElement><any>document.getElementById("answer"));
     this.initEvents();
-  }
-
-  private getValue(): string {
-    return this.answerElement.textContent || '';
-  }
-
-  private refocus(el: HTMLElement) {
-    let range = document.createRange();
-    range.selectNodeContents(el);
-    range.collapse(false);
-    let sel = window.getSelection();
-    sel.removeAllRanges()
-    sel.addRange(range);
-  }
-
-  private setValue(value: string) {
-    this.answerElement.textContent = value;
-    this.refocus(this.answerElement);
-  }
-
-  private updateValue(tail: string) {
-    this.setValue(this.getValue() + tail);
   }
 
   private initEvents() {
     this.answerElement.addEventListener("keydown", evt => {
+      console.log(window.getSelection().getRangeAt(0));
       if (evt.metaKey) {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
           if (evt.code == "KeyS") {
             evt.preventDefault();
-            if (this.getValue().endsWith("sch")) {
-              this.setValue(this.getValue().replace(/sch$/, 'ß'))
-            } else {
-              this.updateValue(isUppercase ? 'Sch' : 'sch');
-            }
+            this.answerEditor.insertFragment(isUppercase ? 'Sch' : 'sch');
           } else if (evt.code == "KeyT") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Tsch' : 'tsch');
+            this.answerEditor.insertFragment(isUppercase ? 'Tsch' : 'tsch');
           } else if (evt.code == "KeyO") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Ö' : 'ö');
+            this.answerEditor.insertFragment(isUppercase ? 'Ö' : 'ö');
           } else if (evt.code == "KeyU") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Ü' : 'ü');
+            this.answerEditor.insertFragment(isUppercase ? 'Ü' : 'ü');
           } else if (evt.code == "KeyA") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Ä' : 'ä');
+            this.answerEditor.insertFragment(isUppercase ? 'Ä' : 'ä');
+          } else if (evt.code == "KeyC") {
+            evt.preventDefault();
+            this.answerEditor.insertFragment(isUppercase ? 'Ch' : 'ch');
           } else if (evt.code == "KeyX") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Ch' : 'ch');
+            this.answerEditor.insertFragment(isUppercase ? 'Ch' : 'ch');
           } else if (evt.code == "KeyE") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Ei' : 'ei');
+            this.answerEditor.insertFragment(isUppercase ? 'Ei' : 'ei');
           } else if (evt.code == "KeyJ") {
             evt.preventDefault();
-            this.updateValue(isUppercase ? 'Äu' : 'äu');
+            this.answerEditor.insertFragment(isUppercase ? 'Äu' : 'äu');
           }
         }
         if (evt.code == "Period") {
@@ -76,7 +57,7 @@ export class Test {
         } else if (evt.code === "Slash") {
           this.hint();
         } else if (evt.key === "Enter") {
-          this.check(this.getValue());
+          this.check(this.answerEditor.getValue());
         }
       }
     });
@@ -99,14 +80,13 @@ export class Test {
 
   private hint() {
     if (this.currentQuestion) {
-      this.setValue(this.currentQuestion.a);
+      this.answerEditor.replace(this.currentQuestion.a);
     }
   }
 
   ask() {
+    this.answerEditor.replace("");
     this.currentQuestion = this.nextQuestion();
-    this.setValue("");
     this.questionElement.textContent = this.currentQuestion.q;
-    this.answerElement.focus();
   }
 }
