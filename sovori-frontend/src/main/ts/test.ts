@@ -4,22 +4,20 @@ import {Editor} from "./editor.js";
 export class Test {
   data: DataRecord[] = [];
   questionElement: Element;
-  answerElement: Element;
   answerEditor: Editor;
   private currentQuestion: DataRecord;
 
   constructor(data: DataRecord[]) {
     this.data = data;
     this.questionElement = <Element><any>document.getElementById("question");
-    this.answerElement = <HTMLDivElement><any>document.getElementById("answer");
 
-    this.answerEditor = new Editor(<HTMLDivElement><any>document.getElementById("answer"));
+    this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
     this.initEvents();
   }
 
   private initEvents() {
-    this.answerElement.addEventListener("keydown", (event) => {
-      const evt = <KeyboardEvent> event;
+    this.answerEditor.eventsManager.listen("editorKeyDown", (event) => {
+      let evt =  (<CustomEvent> event).detail;
       if (evt.metaKey) {
         if (evt.code == "Period") {
           this.ask();

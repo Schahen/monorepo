@@ -3,7 +3,7 @@ export class CustomDomEvent {
 
     constructor(private element: Element) {}
 
-    listen(eventName: string, handler: EventListenerOrEventListenerObject) {
+    listen(eventName: string, handler: (evt: Event) => void) {
         this.element.addEventListener(eventName, handler);
     }
 

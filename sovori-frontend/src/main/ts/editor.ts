@@ -13,6 +13,12 @@ export class Editor {
   private initEvents() {
     this.element.addEventListener("keydown", (event: Event) => {
       const evt = <KeyboardEvent> event;
+
+      this._eventsHandler.trigger(new CustomEvent("editorKeyDown", {detail: {
+          code: evt.code,
+          metaKey: evt.metaKey,
+          shiftKey: evt.shiftKey
+        }}));
       if (evt.metaKey) {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
