@@ -1,13 +1,14 @@
 import {TestRecord} from "./data_loader.js";
 import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
+import {Question} from "./Question.js";
 
 export class Test {
   data: TestRecord[] = [];
   questionElement: Element;
   answerEditor: Editor;
   stats: Statistics;
-  private currentQuestion: TestRecord;
+  private currentQuestion: Question;
 
   constructor(data: TestRecord[]) {
     this.data = data;
@@ -54,13 +55,14 @@ export class Test {
     this.answerEditor.eventsManager.trigger(new CustomEvent(eventName));
   }
 
-  private nextQuestion(): TestRecord {
-    return this.data[Math.floor(Math.random() * this.data.length)]
+  private nextQuestion(): Question {
+    let testRecord = this.data[Math.floor(Math.random() * this.data.length)];
+    return new Question(testRecord);
   }
 
   private check(answer: string) {
     if (this.currentQuestion) {
-      if (answer !== this.currentQuestion.a) {
+      if (answer !== this.currentQuestion.answer) {
         this.triggerEvent("wrongAnswer");
       } else {
         this.triggerEvent("rightAnswer");
@@ -70,13 +72,13 @@ export class Test {
 
   private hint() {
     if (this.currentQuestion) {
-      this.answerEditor.replace(this.currentQuestion.a);
+      this.answerEditor.replace(this.currentQuestion.answer);
     }
   }
 
   ask() {
     this.answerEditor.replace("");
     this.currentQuestion = this.nextQuestion();
-    this.questionElement.textContent = this.currentQuestion.q;
+    this.questionElement.textContent = this.currentQuestion.question;
   }
 }
