@@ -62,7 +62,7 @@ export class Test {
 
   private check(givenAnswer: string) {
     if (this.currentQuestion) {
-      if (this.currentQuestion.check(givenAnswer)) {
+      if (!this.currentQuestion.check(givenAnswer)) {
         this.triggerEvent("wrongAnswer");
       } else {
         this.triggerEvent("rightAnswer");

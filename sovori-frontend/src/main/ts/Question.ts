@@ -14,7 +14,7 @@ export class Question {
 
   check(givenAnswer: string): boolean {
     let givenAnswerNormalized = givenAnswer.trim();
-    console.debug(givenAnswerNormalized, this.answer);
+
     if (this.answer === givenAnswerNormalized) {
       return true;
     }

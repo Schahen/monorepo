@@ -1,10 +1,6 @@
 export class TestRecord {
   q: string;
   a: string;
-
-  get question(): string {
-    return this.q;
-  }
 }
 
 export class DataLoaderResponse {
