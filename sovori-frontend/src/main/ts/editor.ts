@@ -50,6 +50,9 @@ export class Editor {
           } else if (evt.code == "KeyJ") {
             evt.preventDefault();
             this.insertFragment(isUppercase ? 'Äu' : 'äu');
+          } else if (evt.code == "KeyK") {
+            evt.preventDefault();
+            this.insertFragment(isUppercase ? 'Ck' : 'ck');
           }
         }
       }
