@@ -1,0 +1,7 @@
+{
+    "rules": {
+      "no-reference": true,
+      "curly": true,
+      "no-any": true
+    }
+}
