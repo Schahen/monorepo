@@ -13,7 +13,6 @@ export class Test {
   constructor(data: TestRecord[]) {
     this.data = data;
     this.questionElement = <Element>document.getElementById("question");
-
     this.stats = new Statistics();
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
     this.initEvents();
