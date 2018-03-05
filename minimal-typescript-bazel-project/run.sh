@@ -1,4 +1,4 @@
 
  bazel run @nodejs//:npm install
 
- bazel run :tsc -- -v
+ bazel run :tsc -- --project tsconfig.json
