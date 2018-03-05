@@ -1,4 +1,4 @@
 
  bazel run @nodejs//:npm install
 
- bazel run :ts
+ bazel run :ts -- --mode production
