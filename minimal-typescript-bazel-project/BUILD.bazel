@@ -6,11 +6,12 @@ filegroup(name = "node_modules", srcs = glob(["node_modules/**/*"]))
 filegroup(name = "src", srcs = glob(["src/main/ts/**/*.ts"]))
 
 nodejs_binary(
-    name = "tsc",
+    name = "ts",
     data = [
         "@//:node_modules",
         "@//:src",
-        'tsconfig.json'
+        'tsconfig.json',
+        'webpack.config.js'
     ],
-    entry_point = "typescript/bin/tsc"
+    entry_point = "webpack-cli/bin/webpack.js"
 )

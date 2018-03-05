@@ -3,7 +3,8 @@
         "target": "es6",
         "outDir": "build",
         "strict": true,
-        "module": "es2015",
+        "sourceMap": true,
+        "module": "es6",
         "moduleResolution": "node",
         "listFiles": true
     },
