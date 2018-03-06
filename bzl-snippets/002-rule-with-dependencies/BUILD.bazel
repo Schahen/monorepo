@@ -8,4 +8,4 @@ greeting_rule(name="greet_randy", whom="Randy", deps = [':greet_annie'])
 greeting_rule(name="greet_annie", whom="Annie")
 greeting_rule(name="greet_jack", whom="Jack")
 
-farewell_rule(name="farewell_jack", whom="Jack", deps = [':greet_jack'])
+farewell_rule(name="farewell_jack", whom="Jack", you_can_call_this_whatever_you_want_it_still_about_dependencies = [':greet_jack'])

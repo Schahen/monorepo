@@ -18,7 +18,7 @@ farewell_rule = rule(
     implementation = _farewell_rule_impl,
     attrs = {
         "whom": attr.string(default="anonymous", doc='', mandatory=False),
-        "deps": attr.label_list(),
+        "you_can_call_this_whatever_you_want_it_still_about_dependencies": attr.label_list(),
     },
 )
 
