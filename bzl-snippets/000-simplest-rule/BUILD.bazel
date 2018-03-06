@@ -1,0 +1,4 @@
+
+load('//:simple_rule.bzl', 'simple_rule')
+
+simple_rule(name="hello_world")
