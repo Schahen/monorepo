@@ -1,0 +1,7 @@
+
+load('//:greeting_rule.bzl', 'greeting_rule')
+
+greeting_rule(name="greet anonymous")
+greeting_rule(name="greet_paul", whom="Paul")
+greeting_rule(name="greet_randy", whom="Randy")
+greeting_rule(name="greet_annie", whom="Annie")
