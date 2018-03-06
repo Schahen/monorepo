@@ -1,3 +1,5 @@
+bazel-*
+
 .gradle
 
 gradlew
