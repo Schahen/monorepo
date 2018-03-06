@@ -1,9 +1,21 @@
-def _simple_rule_impl(ctx):
-    print("Hello, {}".format(ctx.attr.whom))
+def _greeting_rule_impl(ctx):
+    print("Hi, {}".format(ctx.attr.whom))
+
+def _farewell_rule_impl(ctx):
+    print("Bye, {}".format(ctx.attr.whom))
 
 # https://docs.bazel.build/versions/master/skylark/lib/attr.html
 greeting_rule = rule(
-    implementation = _simple_rule_impl,
+    implementation = _greeting_rule_impl,
+    attrs = {
+        "whom": attr.string(default="anonymous", doc='', mandatory=False),
+        "deps": attr.label_list(),
+    },
+)
+
+
+farewell_rule = rule(
+    implementation = _farewell_rule_impl,
     attrs = {
         "whom": attr.string(default="anonymous", doc='', mandatory=False),
         "deps": attr.label_list(),
