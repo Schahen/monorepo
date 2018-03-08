@@ -1,0 +1,3 @@
+load(":node.bzl", "install_nodejs")
+
+install_nodejs(name="mydistrib")

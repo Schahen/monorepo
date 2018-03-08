@@ -1,0 +1,11 @@
+load(':project.bzl', "run_script")
+
+filegroup(name = "src", srcs = glob(["src/**/*.js"]))
+
+run_script(
+    name="frontend",
+    runner= '@mydistrib//:bin/node',
+    input= ["@//:src"],
+    out= "out.txt",
+    script= "@//:src/ping.js"
+)
