@@ -1,0 +1,14 @@
+{
+  "name": "005-naive-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "None",
+  "dependencies": {
+    "less": "^3.0.1"
+  }
+}

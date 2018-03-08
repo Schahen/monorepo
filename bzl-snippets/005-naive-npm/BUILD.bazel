@@ -1,0 +1,21 @@
+load(":lessc.bzl", "lessc")
+
+filegroup(name = "node_modules", srcs = glob(["node_modules/**/*"]))
+filegroup(name = "node_config", srcs = ["package.json"])
+filegroup(name = "src", srcs = glob(["**/*.less"]))
+
+lessc(
+    name="frontend",
+    input=["in.less"],
+    out="out.txt"
+    )
+
+sh_binary(
+    name = "lessc",
+    data = [
+        "@//:node_config",
+        "@//:node_modules",
+        "@//:src",
+    ],
+    srcs = ["lessc.sh"]
+)
