@@ -1,0 +1,6 @@
+
+# This target is used by the shell rule.
+sh_binary(
+    name = "mybuild",
+    srcs = ["mybuild.sh"],
+)
