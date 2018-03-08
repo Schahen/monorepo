@@ -1,0 +1,13 @@
+load(":executable.bzl", "ping")
+
+ping(
+    name="pong",
+    input=["a.txt", "b.txt"],
+    out="out.txt"
+    )
+
+# This target is used by the shell rule.
+sh_binary(
+    name = "mybuild",
+    srcs = ["mybuild.sh"],
+)
