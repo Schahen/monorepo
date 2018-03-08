@@ -7,8 +7,8 @@ filegroup(name = "src", srcs = glob(["src/main/ts/**/*.ts"]))
 
 nodejs_binary(
     name = "ts",
+    node_modules = "@distrib//:node_modules",
     data = [
-        "@//:node_modules",
         "@//:src",
         'tsconfig.json',
         'webpack.config.js'

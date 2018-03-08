@@ -6,6 +6,14 @@ git_repository(
 )
 
 load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
+load("@build_bazel_rules_nodejs//:defs.bzl", "npm_install")
+
+
+npm_install(
+    name = "distrib",
+    # This can also take package-loc.json
+    package_json = "//:package.json",
+)
 
 # NOTE: this rule installs nodejs, npm, and yarn, but does NOT install
 # your npm dependencies into your node_modules folder.
