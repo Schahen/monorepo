@@ -11,7 +11,7 @@ lessc(
     )
 
 sh_binary(
-    name = "lessc",
+    name = "lessc_sh",
     data = [
         "@//:node_config",
         "@//:node_modules",
