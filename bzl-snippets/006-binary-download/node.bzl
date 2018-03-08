@@ -19,10 +19,13 @@ darwin = ("https://nodejs.org/dist/v8.9.4/node-v8.9.4-darwin-x64.tar.gz",
 "node-v8.9.4-darwin-x64")
 
 def _install_nodejs_impl(repository_ctx):
-  if repository_ctx.os.name.lower().startswith("mac os"):
-    (url, sha256, prefix) = darwin
+  is_mac = repository_ctx.os.name.lower().startswith("mac os")
+  if is_mac:
+    config = darwin
   else:
-    (url, sha256, prefix) = linux
+    config = linux
+
+  (url, sha256, prefix) = config
 
   repository_ctx.download_and_extract(
     url = url,
