@@ -1,6 +1,10 @@
 
 def _impl(ctx):
     args = [ctx.outputs.out.path] + [f.path for f in ctx.files.input]
+    print("=======")
+    print(args)
+    print(ctx.executable._executable)
+    print("=======")
 
     ctx.actions.run(
         arguments=args,

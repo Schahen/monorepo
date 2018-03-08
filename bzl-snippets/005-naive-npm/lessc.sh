@@ -1,3 +1,8 @@
+echo "======"
+echo $@
+echo "======"
 npm install
 
-node node_modules/less/bin/lessc *.less
+out=$1
+shift    
+node node_modules/less/bin/lessc -v $@ > $out
