@@ -1,0 +1,11 @@
+
+
+sh_binary(
+    name = "ping",
+    srcs = ["@from_repo//:ping.sh"]
+)
+
+sh_binary(
+    name = "pong",
+    srcs = ["@from_repo_with_custom_message//:ping.sh"]
+)
