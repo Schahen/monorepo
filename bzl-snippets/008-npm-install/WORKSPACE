@@ -1,0 +1,6 @@
+
+load(":defs.bzl", "init_repo_rules")
+
+init_repo_rules()
+
+

@@ -1,0 +1,10 @@
+
+
+load(":defs.bzl", "run")
+
+run(name="frontend")
+
+sh_binary(
+    name = "npm_install",
+    srcs = ["@from_repo//:npm.sh"]
+)
