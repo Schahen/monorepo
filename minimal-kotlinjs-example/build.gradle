@@ -33,24 +33,35 @@ compileKotlin2Js {
 
 
 dependencies {
+  compileOnly "org.eclipse.jetty:jetty-runner:9.4.9.v20180320"
   compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
 }
 
 task assembleWeb(type: Sync) {
-    configurations.compile.each { File file ->
-        from(zipTree(file.absolutePath), {
-            includeEmptyDirs = false
-            include { fileTreeElement ->
-                def path = fileTreeElement.path
-                path.endsWith(".js") && (path.startsWith("META-INF/resources/") ||
-                    !path.startsWith("META-INF/"))
-            }
-        })
-    }
-    from compileKotlin2Js.destinationDir
-    into "${buildDir}/web/lib"
+  configurations.compile.each { File file ->
+    from(zipTree(file.absolutePath), {
+      includeEmptyDirs = false
+      include { fileTreeElement ->
+        def path = fileTreeElement.path
+        path.endsWith(".js") && (path.startsWith("META-INF/resources/") ||
+            !path.startsWith("META-INF/"))
+      }
+    })
+  }
+  from compileKotlin2Js.destinationDir
+  into "${buildDir}/web/lib"
 
-    dependsOn classes
+  dependsOn classes
+}
+
+task runJetty(type: JavaExec) {
+  //classpath = files("jetty-runner.jar")
+  classpath = sourceSets.main.compileClasspath
+
+  main = 'org.eclipse.jetty.runner.Runner'
+
+  // arguments to pass to the application
+  args 'build/libs/minimal-kotlinjs-example-1.0-SNAPSHOT.war'
 }
 
 assemble.dependsOn assembleWeb
