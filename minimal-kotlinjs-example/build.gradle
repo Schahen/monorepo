@@ -55,15 +55,13 @@ task assembleWeb(type: Sync) {
 }
 
 task runJetty(type: JavaExec) {
-  //classpath = files("jetty-runner.jar")
   classpath = sourceSets.main.compileClasspath
 
   main = 'org.eclipse.jetty.runner.Runner'
 
   // arguments to pass to the application
-  args 'build/libs/minimal-kotlinjs-example-1.0-SNAPSHOT.war'
+  args war.archivePath
 }
 
 assemble.dependsOn assembleWeb
 build.dependsOn compileKotlin2Js
-
