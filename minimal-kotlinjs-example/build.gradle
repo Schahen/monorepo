@@ -34,6 +34,7 @@ compileKotlin2Js {
 
 dependencies {
   compileOnly "org.eclipse.jetty:jetty-runner:9.4.9.v20180320"
+  runtime "org.eclipse.jetty:jetty-deploy:9.4.9.v20180320"
   compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
 }
 
@@ -55,12 +56,12 @@ task assembleWeb(type: Sync) {
 }
 
 task runJetty(type: JavaExec) {
-  classpath = sourceSets.main.compileClasspath
+  classpath = sourceSets.main.compileClasspath + sourceSets.main.runtimeClasspath
 
   main = 'org.eclipse.jetty.runner.Runner'
 
   // arguments to pass to the application
-  args war.archivePath
+  args "--config", "deploy.xml", "${war.archivePath}"
 }
 
 assemble.dependsOn assembleWeb
