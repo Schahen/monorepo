@@ -8,19 +8,11 @@ buildscript {
   }
 }
 
-group 'org.example'
+group 'org.shabunc.kotlinjs'
 version '1.0-SNAPSHOT'
 
 repositories {
   mavenCentral()
-}
-
-apply plugin: 'war'
-war {
-  from("${buildDir}/web") {
-    include "**/*.*"
-    into '/static'
-  }
 }
 
 
@@ -31,6 +23,14 @@ compileKotlin2Js {
   kotlinOptions.sourceMap = true
 }
 
+
+apply plugin: 'war'
+war {
+  from("${buildDir}/web") {
+    include "**/*.*"
+    into '/static'
+  }
+}
 
 dependencies {
   compileOnly "org.eclipse.jetty:jetty-runner:9.4.9.v20180320"
