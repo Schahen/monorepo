@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.3",
+    "kotlin": "^1.2.31"
+  },
   "devDependencies": {
     "@jetbrains/kotlinc-js-api": "^1.2.6"
   },
