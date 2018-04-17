@@ -3,6 +3,7 @@ import {Router} from "express-serve-static-core";
 import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import {jsonResponse} from "./jsonResponse";
 
 export function coursesRouter(): Router {
 
@@ -12,18 +13,15 @@ export function coursesRouter(): Router {
 
   router.use('/:id', (req, res) => {
     const content = fs.readFileSync(path.resolve(dataDir, `${req.params.id}.json`), 'utf8');
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send(content);
+    jsonResponse(res, content);
   });
 
   router.use('/', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send({
+    jsonResponse(res, {
       courses: [
         {id: "deutsch"}
       ]
-    })
+    });
   });
 
   return router;
