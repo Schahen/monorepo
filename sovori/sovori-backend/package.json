@@ -4,7 +4,8 @@
   "description": "Sovori - el inch asem?",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/nodemon/bin/nodemon.js build/ts/app.js"
   },
   "author": "",
   "license": "MIT",
@@ -12,6 +13,7 @@
     "@types/express": "^4.11.0",
     "@types/node": "^9.4.0",
     "express": "^4.16.2",
+    "nodemon": "^1.17.3",
     "typescript": "^2.8.1"
   }
 }
