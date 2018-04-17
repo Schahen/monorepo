@@ -14,7 +14,6 @@ let main = () => {
 
   app.use("/courses", coursesRouter());
 
-  registerPath(app, '/data', <string><any>process.env.APP_DATA);
   registerPath(app, '/app', pathToStatic);
 
   let port = 3000;
