@@ -10,6 +10,6 @@ export class DataLoaderResponse {
 export default class DataLoader {
 
   async load(): Promise<DataLoaderResponse> {
-    return fetch("/courses/deutsch").then(r => r.json());
+    return fetch("/api/courses/deutsch").then(r => r.json());
   }
 }

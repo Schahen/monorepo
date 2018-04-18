@@ -12,9 +12,13 @@ let main = () => {
 
   let pathToStatic = path.resolve(__dirname, '..', '..', '..', 'sovori-frontend', 'build');
 
-  app.use("/courses", coursesRouter());
+  app.use("/api/courses", coursesRouter());
 
-  registerPath(app, '/app', pathToStatic);
+  registerPath(app, '/resources', pathToStatic);
+
+  app.get("/courses/:course", function (req, res) {
+    res.sendFile(path.resolve(pathToStatic, "index.html"));
+  });
 
   let port = 3000;
   app.listen(port, function () {
