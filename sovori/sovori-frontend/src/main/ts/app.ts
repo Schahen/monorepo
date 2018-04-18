@@ -7,8 +7,12 @@ let main = async function () {
 
   let router = new LocalRouter();
   router.register((path, state: State) => {
-      state.save("course", "deutsch");
-      return true;
+      if (path.match(/^\/courses\/(.*)/)) {
+        console.log(RegExp.$1);
+        state.save("course", RegExp.$1);
+        return true;
+      }
+      return false;
   }, async function (state: State) {
     let dataLoader = new DataLoader();
     let response = await dataLoader.load(state.get("course"));
