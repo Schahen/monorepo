@@ -1,16 +1,19 @@
-export class LocalRouterRecord {
-  private condition: (path: string) => boolean;
-  private handler: () => void;
+import {State} from "./State.js";
 
-  constructor(condition: (path: string) => boolean, handler: () => void) {
+export class LocalRouterRecord {
+  private condition: (path: string, state: State) => boolean;
+  private handler: (state: State) => void;
+
+  constructor(condition: (path: string, state: State) => boolean, handler: (state: State) => void) {
     this.condition = condition;
     this.handler = handler;
   }
 
   conditionalExecute(path: string) {
-    let condition = this.condition(path);
+    let state = new State();
+    let condition = this.condition(path, state);
     if (condition) {
-      this.handler();
+      this.handler(state);
     }
     return condition;
   }
@@ -24,7 +27,7 @@ export class LocalRouter {
     this.routes = [];
   }
 
-  register(path: (path: string) => boolean, handler: () => void) {
+  register(path: (path: string, state: State) => boolean, handler: (state: State) => void) {
     this.routes.push(new LocalRouterRecord(path, handler));
   }
 
