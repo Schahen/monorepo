@@ -8,6 +8,7 @@ import * as low from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
 import {Courses} from "./Courses";
+import * as shortid from "shortid";
 
 export function coursesRouter(): Router {
 
@@ -26,8 +27,9 @@ export function coursesRouter(): Router {
     const db = low(new FileSync(path.resolve(dataDir, `${req.params.id}.json`)));
     if (Courses.validate(req.body)) {
       let record = req.body;
+      record.id = shortid.generate();
       db.get("data").push(record).write();
-      jsonResponse(res, req.body);
+      jsonResponse(res, record);
     } else {
       res.status(400).send({error: "bad record"})
     }
