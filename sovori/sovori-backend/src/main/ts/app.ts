@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as path from 'path';
-import {coursesRouter} from "./api/courses";
+import {coursesRouter} from "./api/coursesRouter";
 
 let registerPath = (app: express.Application, path: string, resolveTo: string) => {
   console.log(`${path} => ${resolveTo}`)

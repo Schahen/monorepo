@@ -7,6 +7,7 @@ import {jsonResponse} from "./jsonResponse";
 import * as low from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
+import {Courses} from "./Courses";
 
 export function coursesRouter(): Router {
 
@@ -23,8 +24,13 @@ export function coursesRouter(): Router {
 
   router.post('/:id', (req, res) => {
     const db = low(new FileSync(path.resolve(dataDir, `${req.params.id}.json`)));
-    db.get("data.data").push(req.body).write();
-    jsonResponse(res, req.body);
+    if (Courses.validate(req.body)) {
+      let record = req.body;
+      db.get("data").push(record).write();
+      jsonResponse(res, req.body);
+    } else {
+      res.status(400).send({error: "bad record"})
+    }
   });
 
   router.get('/', (req, res) => {
