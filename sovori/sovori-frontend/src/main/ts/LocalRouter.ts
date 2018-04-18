@@ -1,20 +1,36 @@
+export class LocalRouterRecord {
+  private condition: (path: string) => boolean;
+  private handler: () => void;
+
+  constructor(condition: (path: string) => boolean, handler: () => void) {
+    this.condition = condition;
+    this.handler = handler;
+  }
+
+  conditionalExecute(path: string) {
+    let condition = this.condition(path);
+    if (condition) {
+      this.handler();
+    }
+    return condition;
+  }
+}
 
 export class LocalRouter {
 
-  private routes: Map<((path: string) => boolean), () => void>
+  private routes: Array<LocalRouterRecord>
 
   constructor() {
-    this.routes = new Map();
+    this.routes = [];
   }
 
   register(path: (path: string) => boolean, handler: () => void) {
-    this.routes.set(path, handler)
+    this.routes.push(new LocalRouterRecord(path, handler));
   }
 
   run(path: string) {
-    for (let [condition, handler] of this.routes) {
-      if (condition(path)) {
-        handler();
+    for (let localRouterRecord of this.routes) {
+      if (localRouterRecord.conditionalExecute(path)) {
         break;
       }
     }
