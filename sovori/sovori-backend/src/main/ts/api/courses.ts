@@ -4,6 +4,8 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import {jsonResponse} from "./jsonResponse";
+import * as low from 'lowdb';
+import * as FileSync from 'lowdb/adapters/FileSync';
 
 export function coursesRouter(): Router {
 
@@ -11,17 +13,14 @@ export function coursesRouter(): Router {
 
   const router = express.Router();
 
-  router.use('/:id', (req, res) => {
-    const content = fs.readFileSync(path.resolve(dataDir, `${req.params.id}.json`), 'utf8');
-    jsonResponse(res, content);
+  router.get('/:id', (req, res) => {
+    const db = low(new FileSync(path.resolve(dataDir, `${req.params.id}.json`)));
+    jsonResponse(res, db.get("data"));
   });
 
-  router.use('/', (req, res) => {
-    jsonResponse(res, {
-      courses: [
-        {id: "deutsch"}
-      ]
-    });
+  router.get('/', (req, res) => {
+    const db = low(new FileSync(path.resolve(dataDir, "courses.json")));
+    jsonResponse(res, db.get("data"));
   });
 
   return router;
