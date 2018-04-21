@@ -41,13 +41,13 @@ export class Test {
       this.questionElement.classList.add("is-correct");
       this.showStats();
       this.ask();
-    })
+    });
 
     this.answerEditor.eventsManager.listen("wrongAnswer", () => {
       this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
-    })
+    });
   }
 
   private triggerEvent(eventName: 'rightAnswer' | 'wrongAnswer') {

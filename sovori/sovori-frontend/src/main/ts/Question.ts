@@ -12,6 +12,10 @@ export class Question {
     return this.testRecord.a;
   }
 
+  get id() {
+    return this.testRecord.id;
+  }
+
   check(givenAnswer: string): boolean {
     let givenAnswerNormalized = givenAnswer.trim();
 

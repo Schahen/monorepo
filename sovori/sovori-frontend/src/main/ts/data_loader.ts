@@ -1,6 +1,7 @@
 export class TestRecord {
   q: string;
   a: string;
+  id: string;
 }
 
 export class DataLoaderResponse {

@@ -9,6 +9,7 @@ import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
 import {Courses} from "./Courses";
 import * as shortid from "shortid";
+import {questionRouter} from "./questionRouter";
 
 export function coursesRouter(): Router {
 
@@ -16,15 +17,18 @@ export function coursesRouter(): Router {
 
   const router = express.Router();
 
-  router.use(bodyParser.json())
+  router.use(bodyParser.json());
 
-  router.get('/:id', (req, res) => {
-    const db = low(new FileSync(path.resolve(dataDir, `${req.params.id}.json`)));
+  router.use("/:courseid/record", questionRouter());
+
+
+  router.get('/:courseid', (req, res) => {
+    const db = low(new FileSync(path.resolve(dataDir, `${req.params.courseid}.json`)));
     jsonResponse(res, db.get("data"));
   });
 
-  router.post('/:id', (req, res) => {
-    const db = low(new FileSync(path.resolve(dataDir, `${req.params.id}.json`)));
+  router.post('/:courseid', (req, res) => {
+    const db = low(new FileSync(path.resolve(dataDir, `${req.params.courseid}.json`)));
     if (Courses.validate(req.body)) {
       let record = req.body;
       record.id = shortid.generate();
@@ -34,6 +38,7 @@ export function coursesRouter(): Router {
       res.status(400).send({error: "bad record"})
     }
   });
+
 
   router.get('/', (req, res) => {
     const db = low(new FileSync(path.resolve(dataDir, "courses.json")));
