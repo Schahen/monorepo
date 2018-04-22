@@ -2,6 +2,7 @@ import * as low from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as path from "path";
 import {AdapterSync, Lowdb, lowdb} from "lowdb";
+import {ErrorMessages} from "./error_messages";
 
 export class Course {
 
@@ -24,7 +25,11 @@ export class Course {
   }
 
   update(record: any) {
-    this.db.get("data").push(record).write();
+    if (this.validate(record)) {
+      this.db.get("data").push(record).write();
+    } else {
+      throw new Error(ErrorMessages.INVALID_RECORD);
+    }
   }
 
 }

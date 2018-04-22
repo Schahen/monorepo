@@ -1,20 +1,13 @@
-import * as core from "express-serve-static-core";
 import {Router} from "express-serve-static-core";
 import * as express from 'express';
-import * as fs from 'fs';
-import * as path from 'path';
 import {jsonResponse} from "./jsonResponse";
-import * as low from 'lowdb';
-import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
 import {Courses} from "./Courses";
 import {Course} from "./Course";
-import * as shortid from "shortid";
 import {questionRouter} from "./questionRouter";
+import {ErrorMessages} from "./error_messages";
 
 export function coursesRouter(): Router {
-
-  const dataDir = process.env.APP_DATA;
 
   const router = express.Router();
 
@@ -28,14 +21,16 @@ export function coursesRouter(): Router {
   });
 
   router.post('/:courseid', (req, res) => {
-    const db = low(new FileSync(path.resolve(dataDir, `${req.params.courseid}.json`)));
-    if (Courses.validate(req.body)) {
-      let record = req.body;
-      record.id = shortid.generate();
-      db.get("data").push(record).write();
-      jsonResponse(res, record);
-    } else {
-      res.status(400).send({error: "bad record"})
+    let course = new Course(req.params.courseid);
+    let record = req.body;
+    try {
+      jsonResponse(res, course.update(record));
+    } catch (e) {
+      if (e.message == ErrorMessages.INVALID_RECORD) {
+        res.status(400).send({error: "bad record"});
+      } else {
+        res.status(500).send({error: e.message})
+      }
     }
   });
 
