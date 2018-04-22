@@ -20,6 +20,14 @@ export class Course {
     return record.hasOwnProperty("a") && record.hasOwnProperty("q");
   }
 
+  get(id: string): any {
+    let record = this.db.get('data').find({"id": id}).value();
+    if (!record) {
+      throw new Error(ErrorMessages.RECORD_NOT_FOUND);
+    }
+    return record;
+  }
+
   all(): any {
     return this.db.get("data");
   }

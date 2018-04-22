@@ -6,8 +6,9 @@ import {jsonResponse} from "./jsonResponse";
 import * as low from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
-import {Courses} from "./Courses";
+import {Course} from "./Course";
 import * as shortid from "shortid";
+import {ErrorMessages} from "./error_messages";
 
 
 export function questionRouter(): Router {
@@ -18,10 +19,21 @@ export function questionRouter(): Router {
   router.use(bodyParser.json())
 
   router.get('/:id', (req, res) => {
-    jsonResponse(res, {
-      cid: req.params.courseid,
-      id: req.params.id,
-    });
+
+    try {
+      let data = new Course(res.locals["courseid"]).get(req.params.id);
+
+      jsonResponse(res, {
+        meta: {
+          course_id: res.locals["courseid"]
+        },
+        data
+      });
+    } catch (e) {
+      if (e.message == ErrorMessages.RECORD_NOT_FOUND) {
+        res.status(404).send({error: ErrorMessages.RECORD_NOT_FOUND});
+      }
+    }
   });
 
 

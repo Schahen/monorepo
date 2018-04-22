@@ -31,7 +31,7 @@ export function coursesRouter(): Router {
       jsonResponse(res, course.update(record));
     } catch (e) {
       if (e.message == ErrorMessages.INVALID_RECORD) {
-        res.status(400).send({error: "bad record"});
+        res.status(400).send({error: ErrorMessages.INVALID_RECORD});
       } else {
         res.status(500).send({error: e.message})
       }
