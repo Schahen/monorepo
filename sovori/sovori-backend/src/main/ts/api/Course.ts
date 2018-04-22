@@ -21,18 +21,30 @@ export class Course {
   }
 
   get(id: string): any {
-    let record = this.db.get('data').find({"id": id}).value();
-    if (!record) {
+    let record = this.all().find({"id": id});
+    if (record.size().value() == 0) {
       throw new Error(ErrorMessages.RECORD_NOT_FOUND);
     }
     return record;
+  }
+
+  getValue(id: string): any {
+    return this.get(id).value();
+  }
+
+  updateQuestion(id: string, question: string) {
+    this.get(id).assign({"q": question}).write();
+  }
+
+  updateAnswer(id: string, answer: string) {
+    this.get(id).assign({"a": answer}).write();
   }
 
   all(): any {
     return this.db.get("data");
   }
 
-  update(record: any) {
+  add(record: any) {
     if (this.validate(record)) {
       this.db.get("data").push(record).write();
     } else {

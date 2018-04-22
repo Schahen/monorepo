@@ -19,9 +19,8 @@ export function questionRouter(): Router {
   router.use(bodyParser.json())
 
   router.get('/:id', (req, res) => {
-
     try {
-      let data = new Course(res.locals["courseid"]).get(req.params.id);
+      let data = new Course(res.locals["courseid"]).getValue(req.params.id);
 
       jsonResponse(res, {
         meta: {
@@ -32,9 +31,22 @@ export function questionRouter(): Router {
     } catch (e) {
       if (e.message == ErrorMessages.RECORD_NOT_FOUND) {
         res.status(404).send({error: ErrorMessages.RECORD_NOT_FOUND});
+      } else {
+        res.status(500).send({error: e.message});
       }
     }
   });
+
+  router.post('/:id/question', (req, res) => {
+    try {
+      let course = new Course(res.locals["courseid"]);
+    } catch (e) {
+      if (e.message == ErrorMessages.RECORD_NOT_FOUND) {
+        res.status(404).send({error: ErrorMessages.RECORD_NOT_FOUND});
+      }
+    }
+  });
+
 
 
   return router;

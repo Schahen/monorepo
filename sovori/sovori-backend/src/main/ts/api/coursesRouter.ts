@@ -28,7 +28,7 @@ export function coursesRouter(): Router {
     let course = new Course(req.params.courseid);
     let record = req.body;
     try {
-      jsonResponse(res, course.update(record));
+      jsonResponse(res, course.add(record));
     } catch (e) {
       if (e.message == ErrorMessages.INVALID_RECORD) {
         res.status(400).send({error: ErrorMessages.INVALID_RECORD});
