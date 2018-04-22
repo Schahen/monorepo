@@ -8,6 +8,7 @@ import * as low from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as bodyParser from 'body-parser';
 import {Courses} from "./Courses";
+import {Course} from "./Course";
 import * as shortid from "shortid";
 import {questionRouter} from "./questionRouter";
 
@@ -23,8 +24,7 @@ export function coursesRouter(): Router {
 
 
   router.get('/:courseid', (req, res) => {
-    const db = low(new FileSync(path.resolve(dataDir, `${req.params.courseid}.json`)));
-    jsonResponse(res, db.get("data"));
+    jsonResponse(res, new Course(req.params.courseid).get());
   });
 
   router.post('/:courseid', (req, res) => {
@@ -41,8 +41,7 @@ export function coursesRouter(): Router {
 
 
   router.get('/', (req, res) => {
-    const db = low(new FileSync(path.resolve(dataDir, "courses.json")));
-    jsonResponse(res, db.get("data"));
+    jsonResponse(res, new Courses().get());
   });
 
   return router;
