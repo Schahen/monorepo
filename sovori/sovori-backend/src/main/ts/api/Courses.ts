@@ -9,10 +9,6 @@ export class Courses {
 
   private db:Lowdb<any, AdapterSync<any>>;
 
-  static validate(record: any): boolean {
-    return record.hasOwnProperty("a") && record.hasOwnProperty("q");
-  }
-
   constructor() {
     this.db = low(new FileSync(path.resolve(Courses.dataDir, "courses.json")));
   }
