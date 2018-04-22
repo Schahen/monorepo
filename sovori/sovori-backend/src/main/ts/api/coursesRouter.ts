@@ -13,11 +13,15 @@ export function coursesRouter(): Router {
 
   router.use(bodyParser.json());
 
+  router.param('courseid', function(req, res, next, name) {
+    res.locals['courseid'] = name;
+    next();
+  });
+
   router.use("/:courseid/record", questionRouter());
 
-
   router.get('/:courseid', (req, res) => {
-    jsonResponse(res, new Course(req.params.courseid).get());
+    jsonResponse(res, new Course(req.params.courseid).all());
   });
 
   router.post('/:courseid', (req, res) => {

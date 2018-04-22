@@ -20,7 +20,7 @@ export class Course {
     return record.hasOwnProperty("a") && record.hasOwnProperty("q");
   }
 
-  get(): any {
+  all(): any {
     return this.db.get("data");
   }
 

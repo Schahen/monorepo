@@ -17,7 +17,7 @@ export function questionRouter(): Router {
   const router = express.Router();
   router.use(bodyParser.json())
 
-  router.get('/:id/answer', (req, res) => {
+  router.get('/:id', (req, res) => {
     jsonResponse(res, {
       cid: req.params.courseid,
       id: req.params.id,
