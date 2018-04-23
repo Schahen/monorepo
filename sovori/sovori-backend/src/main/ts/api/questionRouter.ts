@@ -35,16 +35,18 @@ export function questionRouter(): Router {
   router.post('/:id/question', (req, res) => {
     try {
       let record = req.body;
-      if (!record.hasOwnProperty("queston")) {
+      if (!record.hasOwnProperty("q")) {
         throw new Error(ErrorMessages.QUESTION_NOT_PRESENT);
       }
 
       let course = new Course(res.locals["courseid"]);
 
-      course.updateQuestion(req.params.id, record.question);
+      course.updateQuestion(req.params.id, record.q);
     } catch (e) {
       if (e.message == ErrorMessages.RECORD_NOT_FOUND) {
         res.status(404).send({error: ErrorMessages.RECORD_NOT_FOUND});
+      } else if (e.message == ErrorMessages.QUESTION_NOT_PRESENT) {
+        res.status(400).send({error: ErrorMessages.QUESTION_NOT_PRESENT});
       } else {
         res.status(500).send({error: e.message});
       }

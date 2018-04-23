@@ -8,15 +8,15 @@ let main = async function () {
   let router = new LocalRouter();
   router.register((path, state: State) => {
       if (path.match(/^\/courses\/(.*)/)) {
-        console.log(RegExp.$1);
         state.save("course", RegExp.$1);
         return true;
       }
       return false;
   }, async function (state: State) {
     let dataLoader = new DataLoader();
-    let data = await dataLoader.load(state.get("course"));
-    let test = new Test(data);
+    let courseId = state.get("course");
+    let data = await dataLoader.load(courseId);
+    let test = new Test(courseId, data);
     test.ask();
   });
 

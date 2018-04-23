@@ -10,9 +10,11 @@ export class Test {
   answerEditor: Editor;
   stats: Statistics;
   private currentQuestion: Question;
+  courseId: string;
 
-  constructor(data: TestRecord[]) {
+  constructor(courseId: string, data: TestRecord[]) {
     this.data = data;
+    this.courseId = courseId;
     this.questionElement = <HTMLElement>document.getElementById("question");
     this.stats = new Statistics();
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
