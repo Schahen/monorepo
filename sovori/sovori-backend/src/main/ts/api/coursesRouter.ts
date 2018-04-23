@@ -29,8 +29,12 @@ export function coursesRouter(): Router {
     let record = req.body;
     try {
       let addedRecord = course.add(record);
-      console.log(addedRecord);
-      jsonResponse(res, addedRecord);
+      jsonResponse(res, {
+        meta: {
+          course_id: res.locals["courseid"]
+        },
+        data: addedRecord
+      });
     } catch (e) {
       if (e.message == ErrorMessages.INVALID_RECORD) {
         res.status(400).send({error: ErrorMessages.INVALID_RECORD});
