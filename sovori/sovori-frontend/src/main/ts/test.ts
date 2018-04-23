@@ -53,7 +53,7 @@ export class Test {
     this.questionElement.addEventListener("dblclick", evt => {
       let questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
       questionDialog.open();
-      questionDialog.setQuestion(this.questionElement.dataset.question);
+      questionDialog.setQuestion(this.questionElement.dataset.question || "");
     });
   }
 
