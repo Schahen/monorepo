@@ -3,6 +3,7 @@ import * as FileSync from 'lowdb/adapters/FileSync';
 import * as path from "path";
 import {AdapterSync, Lowdb, lowdb} from "lowdb";
 import {ErrorMessages} from "./error_messages";
+import * as shortid from "shortid";
 
 export class Course {
 
@@ -33,7 +34,7 @@ export class Course {
   }
 
   updateQuestion(id: string, question: string) {
-    this.get(id).assign({"q": question}).write();
+    return this.get(id).assign({"q": question}).write().value();
   }
 
   updateAnswer(id: string, answer: string) {
@@ -44,9 +45,12 @@ export class Course {
     return this.db.get("data");
   }
 
-  add(record: any) {
+  add(record: any): any {
     if (this.validate(record)) {
-      this.db.get("data").push(record).write();
+      let id = shortid.generate();
+      record.id = id;
+      this.all().push(record).write();
+      return this.all().find(record).value();
     } else {
       throw new Error(ErrorMessages.INVALID_RECORD);
     }
