@@ -2,17 +2,18 @@ import {TestRecord} from "./data_loader.js";
 import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
 import {Question} from "./Question.js";
+import {QuestionDialog} from "./QuestionDialog.js";
 
 export class Test {
   data: TestRecord[] = [];
-  questionElement: Element;
+  questionElement: HTMLElement;
   answerEditor: Editor;
   stats: Statistics;
   private currentQuestion: Question;
 
   constructor(data: TestRecord[]) {
     this.data = data;
-    this.questionElement = <Element>document.getElementById("question");
+    this.questionElement = <HTMLElement>document.getElementById("question");
     this.stats = new Statistics();
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
     this.initEvents();
@@ -48,6 +49,12 @@ export class Test {
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
     });
+
+    this.questionElement.addEventListener("dblclick", evt => {
+      let questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
+      questionDialog.open();
+      questionDialog.setQuestion(this.questionElement.dataset.question);
+    });
   }
 
   private triggerEvent(eventName: 'rightAnswer' | 'wrongAnswer') {
@@ -78,6 +85,9 @@ export class Test {
   ask() {
     this.answerEditor.replace("");
     this.currentQuestion = this.nextQuestion();
+
+    this.questionElement.dataset.id = this.currentQuestion.id;
+    this.questionElement.dataset.question = this.currentQuestion.question;
     this.questionElement.textContent = this.currentQuestion.question;
   }
 }
