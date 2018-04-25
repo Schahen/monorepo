@@ -6,7 +6,10 @@ plugins {
 
 compileTypeScript {
 	sourcemap = true
+  projectFile = file("tsconfig.json")
 }
+
+
 
 
 task build {}

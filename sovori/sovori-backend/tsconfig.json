@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "build",
+        "moduleResolution": "node",
+        "listFiles": true
+    },
+    "include": [
+        "src/main/ts/**/*.ts"
+    ]
+}
