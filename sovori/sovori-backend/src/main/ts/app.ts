@@ -10,7 +10,7 @@ let registerPath = (app: express.Application, path: string, resolveTo: string) =
 let main = () => {
   let app = express();
 
-  let pathToStatic = path.resolve(__dirname, '..', '..', '..', '..', '..', '..', 'sovori-frontend', 'build');
+  let pathToStatic = path.resolve(__dirname, '..',  '..', '..', '..', '..', '..', '..', 'sovori-frontend', 'build');
 
   app.use("/api/courses", coursesRouter());
 
@@ -20,7 +20,7 @@ let main = () => {
     res.sendFile(path.resolve(pathToStatic, "index.html"));
   });
 
-  let port = 3000;
+  let port = 4000;
   app.listen(port, function () {
     console.log(`app listening on port ${port}!`);
   });

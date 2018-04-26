@@ -1,13 +1,19 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "outDir": "build",
-        "strict": true,
-        "module": "es2015",
-        "moduleResolution": "node",
-        "listFiles": true
-    },
-    "include": [
-        "src/main/ts/**/*.ts"
-    ]
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "build",
+    "strict": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "listFiles": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": [
+        "src/main/ts/*"
+      ]
+    }
+  },
+  "include": [
+    "src/main/ts/**/*.ts"
+  ]
 }
