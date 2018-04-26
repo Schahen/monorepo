@@ -10,7 +10,7 @@ let registerPath = (app: express.Application, path: string, resolveTo: string) =
 let main = () => {
   let app = express();
 
-  let pathToStatic = path.resolve(__dirname, '..', '..', '..', 'sovori-frontend', 'build');
+  let pathToStatic = path.resolve(__dirname, '..', '..', '..', '..', '..', '..', 'sovori-frontend', 'build');
 
   app.use("/api/courses", coursesRouter());
 

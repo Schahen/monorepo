@@ -9,11 +9,7 @@
         "src/main/ts/*",
         "../sovori-crossplatform/src/main/ts/*"
       ]
-    },
-    "rootDirs": [
-      "src/main/ts",
-      "../sovori-crossplatform/src/main/ts"
-    ]
+    }
   },
   "include": [
     "src/main/ts/**/*.ts"
