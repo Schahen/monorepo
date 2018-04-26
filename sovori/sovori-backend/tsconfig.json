@@ -1,10 +1,21 @@
 {
-    "compilerOptions": {
-        "outDir": "build",
-        "moduleResolution": "node",
-        "listFiles": true
+  "compilerOptions": {
+    "outDir": "build",
+    "moduleResolution": "node",
+    "listFiles": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "src/main/ts/*",
+        "../sovori-crossplatform/src/main/ts/*"
+      ]
     },
-    "include": [
-        "src/main/ts/**/*.ts"
+    "rootDirs": [
+      "src/main/ts",
+      "../sovori-crossplatform/src/main/ts"
     ]
+  },
+  "include": [
+    "src/main/ts/**/*.ts"
+  ]
 }

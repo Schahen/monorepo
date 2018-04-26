@@ -1,11 +1,12 @@
 import * as low from 'lowdb';
+import {AdapterSync, Lowdb} from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as path from "path";
-import {AdapterSync, Lowdb, lowdb} from "lowdb";
 import {ErrorMessages} from "./error_messages";
 import * as shortid from "shortid";
+import {Course} from 'crossplatform/Course';
 
-export class CourseDB {
+export class CourseDB implements Course {
 
   private static dataDir = process.env.APP_DATA;
 
