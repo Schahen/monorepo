@@ -2,7 +2,7 @@ import {Router} from "express-serve-static-core";
 import * as express from 'express';
 import {jsonResponse} from "./jsonResponse";
 import * as bodyParser from 'body-parser';
-import {Course} from "./Course";
+import {CourseDB} from "./CourseDB";
 import {ErrorMessages} from "./error_messages";
 
 
@@ -15,7 +15,7 @@ export function questionRouter(): Router {
 
   router.get('/:id', (req, res) => {
     try {
-      let data = new Course(res.locals["courseid"]).getValue(req.params.id);
+      let data = new CourseDB(res.locals["courseid"]).getValue(req.params.id);
 
       jsonResponse(res, {
         meta: {
@@ -39,7 +39,7 @@ export function questionRouter(): Router {
         throw new Error(ErrorMessages.QUESTION_NOT_PRESENT);
       }
 
-      let course = new Course(res.locals["courseid"]);
+      let course = new CourseDB(res.locals["courseid"]);
 
       course.updateQuestion(req.params.id, record.q);
     } catch (e) {

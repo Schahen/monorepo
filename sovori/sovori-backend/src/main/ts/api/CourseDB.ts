@@ -5,7 +5,7 @@ import {AdapterSync, Lowdb, lowdb} from "lowdb";
 import {ErrorMessages} from "./error_messages";
 import * as shortid from "shortid";
 
-export class Course {
+export class CourseDB {
 
   private static dataDir = process.env.APP_DATA;
 
@@ -14,7 +14,7 @@ export class Course {
 
   constructor(id: string) {
     this.id = id;
-    this.db = low(new FileSync(path.resolve(Course.dataDir, `${this.id}.json`)));
+    this.db = low(new FileSync(path.resolve(CourseDB.dataDir, `${this.id}.json`)));
   }
 
   validate(record: any): boolean {

@@ -3,7 +3,7 @@ import * as express from 'express';
 import {jsonResponse} from "./jsonResponse";
 import * as bodyParser from 'body-parser';
 import {Courses} from "./Courses";
-import {Course} from "./Course";
+import {CourseDB} from "./CourseDB";
 import {questionRouter} from "./questionRouter";
 import {ErrorMessages} from "./error_messages";
 
@@ -21,11 +21,11 @@ export function coursesRouter(): Router {
   router.use("/:courseid/record", questionRouter());
 
   router.get('/:courseid', (req, res) => {
-    jsonResponse(res, new Course(req.params.courseid).all());
+    jsonResponse(res, new CourseDB(req.params.courseid).all());
   });
 
   router.post('/:courseid', (req, res) => {
-    let course = new Course(req.params.courseid);
+    let course = new CourseDB(req.params.courseid);
     let record = req.body;
     try {
       let addedRecord = course.add(record);

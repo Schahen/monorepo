@@ -15,9 +15,13 @@ let main = async function () {
   }, async function (state: State) {
     let dataLoader = new DataLoader();
     let courseId = state.get("course");
-    let data = await dataLoader.load(courseId);
-    let test = new Test(courseId, data);
-    test.ask();
+
+    if (courseId) {
+      let data = await dataLoader.load(courseId);
+      let test = new Test(courseId, data);
+      test.ask();
+    }
+    
   });
 
   router.run(location.pathname);
