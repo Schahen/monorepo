@@ -5,17 +5,16 @@ import * as path from "path";
 import {ErrorMessages} from "./error_messages";
 import * as shortid from "shortid";
 import {Course} from 'crossplatform/Course';
+import {getDataDir} from "./dataDir";
 
 export class CourseDB implements Course {
-
-  private static dataDir = process.env.APP_DATA;
 
   private id:string;
   private db:Lowdb<any, AdapterSync<any>>;
 
   constructor(id: string) {
     this.id = id;
-    this.db = low(new FileSync(path.resolve(CourseDB.dataDir, `${this.id}.json`)));
+    this.db = low(new FileSync(path.resolve(getDataDir(), `${this.id}.json`)));
   }
 
   validate(record: any): boolean {
