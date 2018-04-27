@@ -26,6 +26,7 @@ export class CourseDB implements Course {
     if (record.size().value() == 0) {
       throw new Error(ErrorMessages.RECORD_NOT_FOUND);
     }
+    console.log("GET", record.assign);
     return record;
   }
 
@@ -34,7 +35,7 @@ export class CourseDB implements Course {
   }
 
   updateQuestion(id: string, question: string) {
-    return this.get(id).assign({"q": question}).write().value();
+     return this.get(id).assign({"q": question}).write();
   }
 
   updateAnswer(id: string, answer: string) {

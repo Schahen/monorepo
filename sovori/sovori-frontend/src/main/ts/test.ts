@@ -3,6 +3,7 @@ import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
 import {Question} from "./Question.js";
 import {QuestionDialog} from "./QuestionDialog.js";
+import {CourseHttp} from "./api/CourseHttp.js";
 
 export class Test {
   data: TestRecord[] = [];
@@ -56,6 +57,10 @@ export class Test {
       let questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
       questionDialog.open();
       questionDialog.setQuestion(this.questionElement.dataset.question || "");
+
+      questionDialog.onSave(question => {
+        new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
+      })
     });
   }
 

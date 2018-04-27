@@ -1,4 +1,6 @@
 
+
+
 export class QuestionDialog {
 
   private container: HTMLDialogElement;
@@ -20,10 +22,14 @@ export class QuestionDialog {
       this.close();
     });
 
-    this.saveButton.addEventListener("click", evt => {
 
-    });
   }
+
+   onSave(handler: (question: string) => void ) {
+     this.saveButton.addEventListener("click", evt => {
+       handler(this.questionInput.value);
+     });
+   }
 
   close() {
     this.container.open = false;

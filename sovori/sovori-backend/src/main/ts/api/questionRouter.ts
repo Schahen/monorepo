@@ -48,6 +48,7 @@ export function questionRouter(): Router {
       } else if (e.message == ErrorMessages.QUESTION_NOT_PRESENT) {
         res.status(400).send({error: ErrorMessages.QUESTION_NOT_PRESENT});
       } else {
+        console.log(e.message);
         res.status(500).send({error: e.message});
       }
     }
