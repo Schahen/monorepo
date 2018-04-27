@@ -30,7 +30,7 @@ task build {}
 
 build.dependsOn 'compilePug'
 build.dependsOn 'lessCompile'
-build.dependsOn 'tslint'
+//build.dependsOn 'tslint'
 build.dependsOn 'compileTypeScript'
 
 

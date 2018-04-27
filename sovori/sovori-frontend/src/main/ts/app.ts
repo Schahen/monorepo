@@ -4,7 +4,6 @@ import {LocalRouter} from "./LocalRouter.js";
 import {State} from "./State";
 
 let main = async function () {
-
   let router = new LocalRouter();
   router.register((path, state: State) => {
       if (path.match(/^\/courses\/(.*)/)) {

@@ -6,10 +6,13 @@
     "module": "es2015",
     "moduleResolution": "node",
     "listFiles": true,
+    "listEmittedFiles": true,
     "baseUrl": "./",
     "paths": {
       "*": [
-        "src/main/ts/*"
+        "src/main/ts/*",
+        "../sovori-crossplatform/src/main/ts/*"
+
       ]
     }
   },
