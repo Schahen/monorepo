@@ -1,6 +1,0 @@
-[package]
-name = "rustecma"
-version = "0.1.0"
-authors = ["Shagen Ogandzhanian <shagen.ogandzhanian@jetbrains.com>"]
-
-[dependencies]
