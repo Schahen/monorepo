@@ -1,19 +1,15 @@
-
 plugins {
   id "com.moowork.node" version "0.12"
-  id "de.richsource.gradle.plugins.typescript" version "1.8.0"
-}
-
-compileTypeScript {
-	sourcemap = true
-  projectFile = file("tsconfig.json")
 }
 
 
+task ts(type: Exec) {
+  commandLine "node", "node_modules/typescript/bin/tsc"
+}
 
 
 task build {}
 
-build.dependsOn 'compileTypeScript'
+build.dependsOn 'ts'
 
 defaultTasks 'build'

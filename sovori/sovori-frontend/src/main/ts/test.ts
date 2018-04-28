@@ -10,7 +10,7 @@ export class Test {
   questionElement: HTMLElement;
   answerEditor: Editor;
   stats: Statistics;
-  private currentQuestion: Question;
+  private currentQuestion?: Question;
   courseId: string;
 
   constructor(courseId: string, data: TestRecord[]) {
@@ -59,7 +59,9 @@ export class Test {
       questionDialog.setQuestion(this.questionElement.dataset.question || "");
 
       questionDialog.onSave(question => {
-        new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
+        if (this.currentQuestion != null) {
+          new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
+        }
       })
     });
   }

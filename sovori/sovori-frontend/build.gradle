@@ -1,34 +1,24 @@
 plugins {
   id "com.moowork.node" version "0.12"
-  id "de.richsource.gradle.plugins.typescript" version "1.8.0"
 }
-
-compileTypeScript {
-  sourcemap = true
-  projectFile = file("tsconfig.json")
-}
-
 
 task less(type: Exec) {
-  commandLine "node","node_modules/less/bin/lessc", "--verbose", "src/main/less/all.less", "${project.buildDir}/css/all.css"
+  commandLine "node", "node_modules/less/bin/lessc", "--verbose", "src/main/less/all.less", "${project.buildDir}/css/all.css"
 }
 
-task tslint(type: Exec) {
-  commandLine "node","node_modules/tslint/bin/tslint", "-c", "tslint.json", "src/main/ts/**/*.ts"
+task ts(type: Exec) {
+  commandLine "node", "node_modules/typescript/bin/tsc"
 }
 
 task compilePug(type: Exec) {
   commandLine "node", "node_modules/pug-cli/index.js", "src/main/pug/", "-o", "${project.buildDir}"
 }
 
-
 task build {}
-
 
 build.dependsOn 'compilePug'
 build.dependsOn 'less'
-//build.dependsOn 'tslint'
-build.dependsOn 'compileTypeScript'
+build.dependsOn 'ts'
 
 
 defaultTasks 'build'

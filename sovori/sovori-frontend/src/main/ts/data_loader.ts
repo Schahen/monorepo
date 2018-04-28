@@ -2,7 +2,7 @@ import {TestRecord} from "./TestRecord.js";
 
 
 export class DataLoaderResponse {
-  data: TestRecord[];
+  data: TestRecord[] = []
 }
 
 export default class DataLoader {
