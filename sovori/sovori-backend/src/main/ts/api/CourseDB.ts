@@ -7,7 +7,7 @@ import * as shortid from "shortid";
 import {Course} from 'crossplatform/Course';
 import {getDataDir} from "./dataDir";
 
-export class CourseDB implements Course {
+export class CourseDB implements Course<any> {
 
   private id:string;
   private db:Lowdb<any, AdapterSync<any>>;

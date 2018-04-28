@@ -1,6 +1,7 @@
 import {Course} from 'crossplatform/Course';
+import {TestRecord} from "../TestRecord.js";
 
-export class CourseHttp implements Course {
+export class CourseHttp implements Course<Promise<TestRecord>> {
 
   private id:string;
 
@@ -11,7 +12,7 @@ export class CourseHttp implements Course {
   add(record: any): any {
   }
 
-  all(): any {
+  async all(): Promise<TestRecord[]> {
     return fetch(`/api/courses/${this.id}`).then(r => r.json());
   }
 
