@@ -1,6 +1,5 @@
 
 
-
 export class QuestionDialog {
 
   private container: HTMLDialogElement;
@@ -21,7 +20,6 @@ export class QuestionDialog {
     this.closeButton.addEventListener("click", evt => {
       this.close();
     });
-
 
   }
 
