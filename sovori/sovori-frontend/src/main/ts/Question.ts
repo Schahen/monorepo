@@ -1,4 +1,4 @@
-import {TestRecord} from "./TestRecord.js";
+import {TestRecord} from "crossplatform/TestRecord.js";
 
 
 export class Question {

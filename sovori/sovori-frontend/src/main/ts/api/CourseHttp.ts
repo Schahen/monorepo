@@ -1,5 +1,5 @@
 import {Course} from 'crossplatform/Course';
-import {TestRecord} from "../TestRecord.js";
+import {TestRecord} from "crossplatform/TestRecord.js";
 
 export class CourseHttp implements Course<Promise<TestRecord>> {
 

@@ -3,7 +3,7 @@ import {Statistics} from "./Statistics.js";
 import {Question} from "./Question.js";
 import {QuestionDialog} from "./QuestionDialog.js";
 import {CourseHttp} from "./api/CourseHttp.js";
-import {TestRecord} from "./TestRecord.js";
+import {TestRecord} from "crossplatform/TestRecord.js";
 
 export class Test {
   data: TestRecord[] = [];
