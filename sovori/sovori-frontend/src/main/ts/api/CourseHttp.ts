@@ -12,6 +12,7 @@ export class CourseHttp implements Course {
   }
 
   all(): any {
+    return fetch(`/api/courses/${this.id}`).then(r => r.json());
   }
 
   get(id: string): any {
@@ -28,7 +29,6 @@ export class CourseHttp implements Course {
     const body = {
       q: question
     }
-    console.log("BODY", body);
     const fetchParams = {
       headers: {
         'Accept': 'application/json',
@@ -38,7 +38,6 @@ export class CourseHttp implements Course {
       body: JSON.stringify(body)
     };
 
-    console.log("FETCH PARAMS", fetchParams);
     return fetch(url, fetchParams).then(r => r.json());
   }
 

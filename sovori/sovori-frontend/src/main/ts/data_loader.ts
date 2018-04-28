@@ -1,8 +1,5 @@
-export class TestRecord {
-  q: string;
-  a: string;
-  id: string;
-}
+import {TestRecord} from "./TestRecord.js";
+
 
 export class DataLoaderResponse {
   data: TestRecord[];
@@ -10,7 +7,7 @@ export class DataLoaderResponse {
 
 export default class DataLoader {
 
-  async load(course: string|undefined): Promise<TestRecord[]> {
+  async load(course: string): Promise<TestRecord[]> {
     return fetch(`/api/courses/${course}`).then(r => r.json());
   }
 }

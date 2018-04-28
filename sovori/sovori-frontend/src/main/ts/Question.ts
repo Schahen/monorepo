@@ -1,4 +1,4 @@
-import {TestRecord} from "./data_loader";
+import {TestRecord} from "./TestRecord.js";
 
 
 export class Question {

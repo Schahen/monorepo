@@ -1,9 +1,9 @@
-import {TestRecord} from "./data_loader.js";
 import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
 import {Question} from "./Question.js";
 import {QuestionDialog} from "./QuestionDialog.js";
 import {CourseHttp} from "./api/CourseHttp.js";
+import {TestRecord} from "./TestRecord.js";
 
 export class Test {
   data: TestRecord[] = [];
