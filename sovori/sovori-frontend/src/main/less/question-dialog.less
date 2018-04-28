@@ -1,0 +1,25 @@
+.question-dialog {
+  &[open] {
+    display: flex;
+  }
+
+  --border-radius: 2px;
+
+  background-color: #ffe015;
+  width: 40vw;
+  height: 30vh;
+  flex-direction: column;
+
+  input {
+    border: 2px solid black;
+    border-radius: var(--border-radius);
+    font-size: 2em;
+  }
+
+  button[type="button"] {
+    border: 2px solid black;
+    border-radius: var(--border-radius);
+    background-color: #80c4ff;
+    font-size: 1.2em;
+  }
+}

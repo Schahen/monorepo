@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "less": "^3.0.2",
     "pug-cli": "^1.0.0-alpha6",
     "tslint": "^5.9.1",
     "typescript": "^2.8.1"
