@@ -10,10 +10,11 @@ body
     .answer-container
       #answer.answer-input(contenteditable="true")
   dialog#questionDialog.question-dialog
-    title edit question
+    .question-dialog-title edit question
     .question-dialog-content
       input.question-dialog-input
       div
-        button(type="button").question-dialog-close Close
-        button(type="button").question-dialog-save Save
+        button(type="button").question-dialog-close.btn-neutral cancel
+        button(type="button").question-dialog-save save
+
 

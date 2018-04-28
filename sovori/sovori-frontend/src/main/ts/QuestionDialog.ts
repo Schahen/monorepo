@@ -20,8 +20,7 @@ export class QuestionDialog {
     this.closeButton.addEventListener("click", evt => {
       this.close();
     });
-
-  }
+    }
 
    onSave(handler: (question: string) => void ) {
      this.saveButton.addEventListener("click", evt => {
