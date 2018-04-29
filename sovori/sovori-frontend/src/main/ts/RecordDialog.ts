@@ -38,6 +38,10 @@ export class RecordDialog extends HtmlDialog {
     this.on(DialogEvents.ONOPEN, () => {
       this.questionInput.focus();
     });
+
+    this.on(DialogEvents.ONSUBMIT, () => {
+      this.close();
+    });
   }
 
   onSave(handler: (question: string, answer: string) => void) {
