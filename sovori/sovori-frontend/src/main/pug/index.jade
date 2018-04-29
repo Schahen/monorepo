@@ -5,16 +5,29 @@ head
   script(src="/resources/ts/sovori-frontend/src/main/ts/app.js", type="module")
 body
   #content
-    .question-container
-      .question-input#question
-    .answer-container
-      #answer.answer-input(contenteditable="true")
-  dialog#questionDialog.question-dialog.dialog
-    .question-dialog-title.dialog-title edit question
-    .dialog-content
-      input.question-dialog-input
-      div
-        button(type="button").question-dialog-close.btn-neutral cancel
-        button(type="button").question-dialog-save save
+    div
+      .question-container
+        .question-input#question
+      .answer-container
+        #answer.answer-input(contenteditable="true")
+      dialog#questionDialog.question-dialog.dialog
+        .question-dialog-title.dialog-title edit question
+        .dialog-content
+          input.question-dialog-input
+          div
+            button(type="button").question-dialog-close.btn-neutral cancel
+            button(type="button").question-dialog-save save
+
+      dialog#recordDialog.record-dialog.dialog
+        .question-dialog-title.dialog-title add record
+        .dialog-content
+          input.record-dialog-input
+          input.record-dialog-input
+          div
+            button(type="button").question-dialog-close.btn-neutral cancel
+            button(type="button").question-dialog-save save
+    .footer
+        div add record
+
 
 
