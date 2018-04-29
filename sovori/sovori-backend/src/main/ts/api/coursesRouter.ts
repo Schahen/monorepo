@@ -14,7 +14,7 @@ export function coursesRouter(): Router {
 
   router.use(bodyParser.json());
 
-  router.param('courseid', function(req, res, next, name) {
+  router.param('courseid', function (req, res, next, name) {
     res.locals['courseid'] = name;
     next();
   });

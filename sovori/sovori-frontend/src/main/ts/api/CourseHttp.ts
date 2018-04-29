@@ -1,7 +1,8 @@
 import {Course} from 'crossplatform/Course';
 import {TestRecord} from "crossplatform/TestRecord.js";
+import {RecordResponse} from "crossplatform/RecordResponse.js";
 
-export class CourseHttp implements Course<Promise<TestRecord>> {
+export class CourseHttp implements Course<Promise<TestRecord>, Promise<RecordResponse>> {
 
   private id:string;
 
@@ -9,7 +10,7 @@ export class CourseHttp implements Course<Promise<TestRecord>> {
     this.id = id;
   }
 
-  add(record: any): any {
+  add(record: any): Promise<RecordResponse> {
     const url = `/api/courses/${this.id}/record`;
 
     const fetchParams = {
@@ -21,7 +22,7 @@ export class CourseHttp implements Course<Promise<TestRecord>> {
       body: JSON.stringify(record)
     };
 
-    return fetch(url, fetchParams).then(r => r.json());
+    return <Promise<RecordResponse>>fetch(url, fetchParams).then(r => r.json());
   }
 
   async all(): Promise<TestRecord[]> {

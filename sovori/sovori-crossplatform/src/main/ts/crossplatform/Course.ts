@@ -1,4 +1,4 @@
-export interface Course<T> {
+export interface Course<T, R> {
   validate(record: any): boolean;
 
   get(id: string): any;
@@ -11,5 +11,5 @@ export interface Course<T> {
 
   all(): T extends Promise<infer U> ? Promise<U[]> : T[];
 
-  add(record: any): any;
+  add(record: any): R extends Promise<infer U> ? Promise<U> : R;
 }
