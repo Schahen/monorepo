@@ -21,8 +21,9 @@ body
       dialog#recordDialog.record-dialog.dialog
         .question-dialog-title.dialog-title add record
         .dialog-content
-          input.recordDialogQuestion.record-dialog-input
-          .recordDialogAnswer.editable-input(contenteditable="true")
+          div
+            input.recordDialogQuestion.record-dialog-input
+            .recordDialogAnswer.editable-input(contenteditable="true")
           div
             button(type="button").recordDialogCancel.question-dialog-close.btn-neutral cancel
             button(type="button").recordDialogSave.question-dialog-save save
