@@ -1,4 +1,4 @@
-
+import {find} from "./dom/find";
 
 export class QuestionDialog {
 
@@ -9,9 +9,9 @@ export class QuestionDialog {
 
   constructor(container: HTMLDialogElement) {
     this.container = container;
-    this.questionInput = <HTMLInputElement>this.container.querySelector('.question-dialog-input');
-    this.closeButton = <HTMLButtonElement>this.container.querySelector('.question-dialog-close');
-    this.saveButton = <HTMLButtonElement>this.container.querySelector('.question-dialog-save');
+    this.questionInput = find<HTMLInputElement>(this.container, '.question-dialog-input');
+    this.closeButton = find<HTMLButtonElement>(this.container, '.question-dialog-close');
+    this.saveButton = find<HTMLButtonElement>(this.container, '.question-dialog-save');
 
     this.initEvents();
   }
