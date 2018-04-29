@@ -2,8 +2,18 @@ import {Test} from "./test.js";
 import {LocalRouter} from "./LocalRouter.js";
 import {State} from "./State.js";
 import {CourseHttp} from "./api/CourseHttp.js";
+import {getGlobalEvents} from "./globalEvents.js";
 
 let main = async function () {
+
+  let globalEvents = getGlobalEvents()
+
+  document.body.addEventListener("keydown", evt => {
+    if (evt.key == "Escape") {
+      globalEvents.trigger(new CustomEvent("KEY_ESC"));
+    }
+  });
+
   let router = new LocalRouter();
   router.register((path, state: State) => {
     if (path.match(/^\/courses\/(.*)/)) {
