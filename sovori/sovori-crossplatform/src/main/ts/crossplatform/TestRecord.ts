@@ -1,5 +1,5 @@
-export class TestRecord {
-  q: string = "";
-  a: string = "";
-  id: string = "";
+export type TestRecord = {
+  q: string;
+  a: string;
+  id: string;
 }

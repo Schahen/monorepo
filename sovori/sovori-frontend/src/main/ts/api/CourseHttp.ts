@@ -21,8 +21,6 @@ export class CourseHttp implements Course<Promise<TestRecord>> {
       body: JSON.stringify(record)
     };
 
-    console.log(fetchParams);
-
     return fetch(url, fetchParams).then(r => r.json());
   }
 

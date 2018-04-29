@@ -6,6 +6,7 @@ import {Courses} from "./Courses";
 import {CourseDB} from "./CourseDB";
 import {questionRouter} from "./questionRouter";
 import {ErrorMessages} from "./error_messages";
+import {RecordResponse} from "crossplatform/RecordResponse";
 
 export function coursesRouter(): Router {
 
@@ -29,7 +30,7 @@ export function coursesRouter(): Router {
     let record = req.body;
     try {
       let addedRecord = course.add(record);
-      jsonResponse(res, {
+      jsonResponse<RecordResponse>(res, {
         meta: {
           course_id: res.locals["courseid"]
         },

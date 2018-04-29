@@ -26,7 +26,6 @@ export class CourseDB implements Course<any> {
     if (record.size().value() == 0) {
       throw new Error(ErrorMessages.RECORD_NOT_FOUND);
     }
-    console.log("GET", record.assign);
     return record;
   }
 
@@ -47,7 +46,6 @@ export class CourseDB implements Course<any> {
   }
 
   add(record: {q: string, a: string, id?: string}): any {
-    console.log("[ADD RECORD]", record);
     if (this.validate(record)) {
       let id = shortid.generate();
       record.id = id;
