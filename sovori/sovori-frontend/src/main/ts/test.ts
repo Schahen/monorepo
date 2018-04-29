@@ -15,6 +15,7 @@ export class Test {
   private currentQuestion?: Question;
   private footer: Footer;
   courseId: string;
+  private questionDialog: QuestionDialog;
 
   constructor(courseId: string, data: TestRecord[]) {
     this.data = data;
@@ -24,6 +25,7 @@ export class Test {
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
 
     this.footer = new Footer(find(document.body, '#footer'));
+    this.questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
     this.initEvents();
   }
 
@@ -59,11 +61,10 @@ export class Test {
     });
 
     this.questionElement.addEventListener("dblclick", evt => {
-      let questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
-      questionDialog.open();
-      questionDialog.setQuestion(this.questionElement.dataset.question || "");
+      this.questionDialog.open();
+      this.questionDialog.setQuestion(this.questionElement.dataset.question || "");
 
-      questionDialog.onSave(question => {
+      this.questionDialog.onSave(question => {
         if (this.currentQuestion != null) {
           new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
         }
