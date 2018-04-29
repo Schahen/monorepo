@@ -1,17 +1,18 @@
-import {find} from "./dom/find";
+import {find} from "./dom/find.js";
+import {HtmlDialog} from "./dialog/HtmlDialog.js";
 
-export class QuestionDialog {
+export class QuestionDialog extends HtmlDialog {
 
-  private container: HTMLDialogElement;
   private questionInput: HTMLInputElement;
   private closeButton: HTMLButtonElement;
   private saveButton: HTMLButtonElement;
 
   constructor(container: HTMLDialogElement) {
-    this.container = container;
-    this.questionInput = find<HTMLInputElement>(this.container, '.question-dialog-input');
-    this.closeButton = find<HTMLButtonElement>(this.container, '.question-dialog-close');
-    this.saveButton = find<HTMLButtonElement>(this.container, '.question-dialog-save');
+    super(container);
+
+    this.questionInput = find<HTMLInputElement>(this.getDialogContainer(), '.question-dialog-input');
+    this.closeButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-close');
+    this.saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-save');
 
     this.initEvents();
   }
@@ -20,21 +21,14 @@ export class QuestionDialog {
     this.closeButton.addEventListener("click", evt => {
       this.close();
     });
-    }
-
-   onSave(handler: (question: string) => void ) {
-     this.saveButton.addEventListener("click", evt => {
-       handler(this.questionInput.value);
-     });
-   }
-
-  close() {
-    this.container.open = false;
   }
 
-  open() {
-    this.container.open = true;
+  onSave(handler: (question: string) => void) {
+    this.saveButton.addEventListener("click", evt => {
+      handler(this.questionInput.value);
+    });
   }
+
 
   setQuestion(question: string) {
     this.questionInput.value = question;

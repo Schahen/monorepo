@@ -1,7 +1,7 @@
 import {Test} from "./test.js";
 import {LocalRouter} from "./LocalRouter.js";
-import {State} from "./State";
-import {CourseHttp} from "./api/CourseHttp";
+import {State} from "./State.js";
+import {CourseHttp} from "./api/CourseHttp.js";
 
 let main = async function () {
   let router = new LocalRouter();

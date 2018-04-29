@@ -4,6 +4,8 @@ import {Question} from "./Question.js";
 import {QuestionDialog} from "./QuestionDialog.js";
 import {CourseHttp} from "./api/CourseHttp.js";
 import {TestRecord} from "crossplatform/TestRecord.js";
+import {Footer} from "./Footer.js";
+import {find} from "./dom/find.js";
 
 export class Test {
   data: TestRecord[] = [];
@@ -11,6 +13,7 @@ export class Test {
   answerEditor: Editor;
   stats: Statistics;
   private currentQuestion?: Question;
+  private footer: Footer;
   courseId: string;
 
   constructor(courseId: string, data: TestRecord[]) {
@@ -19,6 +22,8 @@ export class Test {
     this.questionElement = <HTMLElement>document.getElementById("question");
     this.stats = new Statistics();
     this.answerEditor = new Editor(<HTMLElement>document.getElementById("answer"));
+
+    this.footer = new Footer(find(document.body, '#footer'));
     this.initEvents();
   }
 
