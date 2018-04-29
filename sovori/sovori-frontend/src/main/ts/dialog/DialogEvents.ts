@@ -1,5 +1,6 @@
 
 export enum DialogEvents {
   ONOPEN="onopen",
-  ONCLOSE="onclose"
+  ONCLOSE="onclose",
+  ONSUBMIT="onsubmit"
 }

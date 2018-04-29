@@ -27,7 +27,7 @@ export class RecordDialog extends HtmlDialog {
 
     let saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogSave');
     saveButton.addEventListener("click", evt => {
-      this.events.trigger(new CustomEvent("save", {
+      this.events.trigger(new CustomEvent(DialogEvents.ONSUBMIT, {
         detail: {
           question: this.questionInput.value,
           answer: this.answerInput.innerText
@@ -41,7 +41,7 @@ export class RecordDialog extends HtmlDialog {
   }
 
   onSave(handler: (question: string, answer: string) => void) {
-    this.events.listen("save", evt => {
+    this.events.listen(DialogEvents.ONSUBMIT, evt => {
       let question = <string>(<CustomEvent>evt).detail.question;
       let answer = <string>(<CustomEvent>evt).detail.answer;
       handler(question, answer);
