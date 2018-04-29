@@ -44,6 +44,7 @@ export class Test {
       let evt =  (<CustomEvent> event).detail;
       if (evt.metaKey) {
         if (evt.code == "Period") {
+          this.progress.updateTotal();
           this.ask();
         } else if (evt.code === "Slash") {
           this.hint();
@@ -95,7 +96,6 @@ export class Test {
 
   private nextQuestion(): Question {
     let testRecord = this.data[Math.floor(Math.random() * this.data.length)];
-    this.progress.updateTotal();
     return new Question(testRecord);
   }
 
