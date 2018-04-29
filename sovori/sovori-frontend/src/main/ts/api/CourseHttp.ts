@@ -10,6 +10,20 @@ export class CourseHttp implements Course<Promise<TestRecord>> {
   }
 
   add(record: any): any {
+    const url = `/api/courses/${this.id}/record`;
+
+    const fetchParams = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(record)
+    };
+
+    console.log(fetchParams);
+
+    return fetch(url, fetchParams).then(r => r.json());
   }
 
   async all(): Promise<TestRecord[]> {

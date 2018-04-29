@@ -11,7 +11,33 @@ export function questionRouter(): Router {
   const dataDir = process.env.APP_DATA;
 
   const router = express.Router();
-  router.use(bodyParser.json())
+  router.use(bodyParser.json());
+
+  router.post('/', (req, res) => {
+    try {
+      let record = req.body;
+      if (!record.hasOwnProperty("q")) {
+        throw new Error(ErrorMessages.QUESTION_NOT_PRESENT);
+      }
+      if (!record.hasOwnProperty("a")) {
+        throw new Error(ErrorMessages.ANSWER_NOT_PRESENT);
+      }
+
+      let course = new CourseDB(res.locals["courseid"]);
+      console.log("[QUESTION ROUTER] POST", record);
+      course.add(record);
+    } catch (e) {
+      if (e.message == ErrorMessages.QUESTION_NOT_PRESENT) {
+        res.status(400).send({error: ErrorMessages.QUESTION_NOT_PRESENT});
+      } else if (e.message == ErrorMessages.ANSWER_NOT_PRESENT) {
+        res.status(400).send({error: ErrorMessages.ANSWER_NOT_PRESENT});
+      } else {
+        console.log(e.message);
+        res.status(500).send({error: e.message});
+      }
+    }
+  });
+
 
   router.get('/:id', (req, res) => {
     try {

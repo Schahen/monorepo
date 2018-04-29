@@ -46,7 +46,8 @@ export class CourseDB implements Course<any> {
     return this.db.get("data");
   }
 
-  add(record: any): any {
+  add(record: {q: string, a: string, id?: string}): any {
+    console.log("[ADD RECORD]", record);
     if (this.validate(record)) {
       let id = shortid.generate();
       record.id = id;

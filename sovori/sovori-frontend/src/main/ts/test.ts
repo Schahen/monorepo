@@ -70,6 +70,13 @@ export class Test {
         }
       })
     });
+
+    this.footer.onAddRecord((question: string, answer: string) => {
+      new CourseHttp(this.courseId).add({
+        q: question,
+        a: answer
+      });
+    });
   }
 
   private triggerEvent(eventName: 'rightAnswer' | 'wrongAnswer') {
