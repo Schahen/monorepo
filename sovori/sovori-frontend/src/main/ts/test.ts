@@ -7,6 +7,7 @@ import {TestRecord} from "crossplatform/TestRecord.js";
 import {Footer} from "./Footer.js";
 import {find} from "./dom/find.js";
 import {Progress} from "./Progress.js";
+import {CourseEvents} from "./events/CourseEvents.js";
 
 export class Test {
   data: TestRecord[] = [];
@@ -52,7 +53,7 @@ export class Test {
       }
     });
 
-    this.answerEditor.eventsManager.listen("rightAnswer", () => {
+    this.answerEditor.eventsManager.listen(CourseEvents.RIGHT_ANSWER, () => {
       this.stats.registerRight();
       this.questionElement.classList.add("is-correct");
       this.showStats();
@@ -61,7 +62,7 @@ export class Test {
       this.progress.updateCount();
     });
 
-    this.answerEditor.eventsManager.listen("wrongAnswer", () => {
+    this.answerEditor.eventsManager.listen(CourseEvents.WRONG_ANSWER, () => {
       this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
@@ -88,7 +89,7 @@ export class Test {
     });
   }
 
-  private triggerEvent(eventName: 'rightAnswer' | 'wrongAnswer') {
+  private triggerEvent(eventName: CourseEvents) {
     this.answerEditor.eventsManager.trigger(new CustomEvent(eventName));
   }
 
@@ -101,9 +102,9 @@ export class Test {
   private check(givenAnswer: string) {
     if (this.currentQuestion) {
       if (!this.currentQuestion.check(givenAnswer)) {
-        this.triggerEvent("wrongAnswer");
+        this.triggerEvent(CourseEvents.WRONG_ANSWER);
       } else {
-        this.triggerEvent("rightAnswer");
+        this.triggerEvent(CourseEvents.RIGHT_ANSWER);
       }
     }
   }
