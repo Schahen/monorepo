@@ -6,6 +6,7 @@ import {CourseHttp} from "./api/CourseHttp.js";
 import {TestRecord} from "crossplatform/TestRecord.js";
 import {Footer} from "./Footer.js";
 import {find} from "./dom/find.js";
+import {Progress} from "./Progress.js";
 
 export class Test {
   data: TestRecord[] = [];
@@ -16,6 +17,7 @@ export class Test {
   private footer: Footer;
   courseId: string;
   private questionDialog: QuestionDialog;
+  private progress: Progress;
 
   constructor(courseId: string, data: TestRecord[]) {
     this.data = data;
@@ -26,6 +28,9 @@ export class Test {
 
     this.footer = new Footer(find(document.body, '#footer'));
     this.questionDialog = new QuestionDialog(<HTMLDialogElement>document.getElementById("questionDialog"));
+
+    this.progress = new Progress(find<HTMLElement>(document.body, "#progress"));
+
     this.initEvents();
   }
 
@@ -52,12 +57,16 @@ export class Test {
       this.questionElement.classList.add("is-correct");
       this.showStats();
       this.ask();
+
+      this.progress.updateCount();
     });
 
     this.answerEditor.eventsManager.listen("wrongAnswer", () => {
       this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
+
+      this.progress.updateTotal();
     });
 
     this.questionElement.addEventListener("dblclick", evt => {
@@ -85,6 +94,7 @@ export class Test {
 
   private nextQuestion(): Question {
     let testRecord = this.data[Math.floor(Math.random() * this.data.length)];
+    this.progress.updateTotal();
     return new Question(testRecord);
   }
 
