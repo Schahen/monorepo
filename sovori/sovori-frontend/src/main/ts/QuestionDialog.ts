@@ -1,6 +1,7 @@
 import {find} from "./dom/find.js";
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {CustomDomEvent} from "./customDomEvent.js";
+import {DialogEvents} from "./dialog/DialogEvents.js";
 
 export class QuestionDialog extends HtmlDialog {
 
@@ -32,6 +33,10 @@ export class QuestionDialog extends HtmlDialog {
           question: this.questionInput.value
         }
       }));
+    });
+
+    this.on(DialogEvents.ONOPEN, () => {
+      this.questionInput.focus();
     });
   }
 
