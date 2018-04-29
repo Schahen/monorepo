@@ -15,7 +15,6 @@ export class HtmlDialog implements Dialog {
 
   open() {
     this.container.open = true;
-    console.log(this.container);
   }
 
   getDialogContainer() {

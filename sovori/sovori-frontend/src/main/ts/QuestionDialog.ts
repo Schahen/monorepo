@@ -1,11 +1,14 @@
 import {find} from "./dom/find.js";
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
+import {CustomDomEvent} from "./customDomEvent.js";
 
 export class QuestionDialog extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private closeButton: HTMLButtonElement;
   private saveButton: HTMLButtonElement;
+
+  private events: CustomDomEvent;
 
   constructor(container: HTMLDialogElement) {
     super(container);
@@ -14,6 +17,7 @@ export class QuestionDialog extends HtmlDialog {
     this.closeButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-close');
     this.saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-save');
 
+    this.events = new CustomDomEvent(container);
     this.initEvents();
   }
 
@@ -21,14 +25,22 @@ export class QuestionDialog extends HtmlDialog {
     this.closeButton.addEventListener("click", evt => {
       this.close();
     });
-  }
 
-  onSave(handler: (question: string) => void) {
     this.saveButton.addEventListener("click", evt => {
-      handler(this.questionInput.value);
+      this.events.trigger(new CustomEvent("save", {
+        detail: {
+          question: this.questionInput.value
+        }
+      }));
     });
   }
 
+  onSave(handler: (question: string) => void) {
+    this.events.listen("save", evt => {
+      let question = <string>(<CustomEvent>evt).detail.question;
+      handler(question);
+    });
+  }
 
   setQuestion(question: string) {
     this.questionInput.value = question;
