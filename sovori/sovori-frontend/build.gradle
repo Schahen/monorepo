@@ -14,6 +14,10 @@ task compilePug(type: Exec) {
   commandLine "node", "node_modules/pug-cli/index.js", "src/main/pug/", "-o", "${project.buildDir}"
 }
 
+task compileTemplates(type: Exec) {
+  commandLine "node", "node_modules/pug-cli/index.js", "src/main/templates", "-c", "-o", "${project.buildDir}/templates"
+}
+
 task build {}
 
 build.dependsOn 'compilePug'
