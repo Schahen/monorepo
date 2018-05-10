@@ -23,21 +23,32 @@ export class QuestionDialog extends HtmlDialog {
   }
 
   initEvents() {
+
+    this.questionInput.addEventListener("keypress", evt => {
+      if (evt.code == "Enter") {
+        this.save();
+      }
+    });
+
     this.closeButton.addEventListener("click", evt => {
       this.close();
     });
 
     this.saveButton.addEventListener("click", evt => {
-      this.events.trigger(new CustomEvent("save", {
-        detail: {
-          question: this.questionInput.value
-        }
-      }));
+      this.save();
     });
 
     this.on(DialogEvents.ONOPEN, () => {
       this.questionInput.focus();
     });
+  }
+
+  save() {
+    this.events.trigger(new CustomEvent("save", {
+      detail: {
+        question: this.questionInput.value
+      }
+    }));
   }
 
   onSave(handler: (question: string) => void) {

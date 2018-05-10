@@ -78,6 +78,7 @@ export class Test {
       this.questionDialog.onSave(question => {
         if (this.currentQuestion != null) {
           new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
+          this.questionDialog.close();
         }
       })
     });
