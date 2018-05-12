@@ -1,5 +1,6 @@
 
 
 export interface RegisteredEvent<T> {
-  on(handler: (evt: T) => void) : void;
+  on(handler: (data: T) => void) : void;
+  trigger(data: T): void;
 }
