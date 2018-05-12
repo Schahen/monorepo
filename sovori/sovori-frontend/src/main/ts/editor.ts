@@ -1,4 +1,5 @@
 import {CustomDomEvent} from "./customDomEvent.js";
+import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 
 
 export class Editor {
@@ -23,40 +24,14 @@ export class Editor {
       if (evt.metaKey) {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
-          if (evt.code == "KeyS") {
+
+          let fragment = germanLetterHandler(evt.code, isUppercase);
+
+          if (fragment !== null) {
             evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Sch' : 'sch');
-          } else if (evt.code == "KeyT") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Tsch' : 'tsch');
-          } else if (evt.code == "KeyO") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ö' : 'ö');
-          } else if (evt.code == "KeyU") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ü' : 'ü');
-          } else if (evt.code == "KeyA") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ä' : 'ä');
-          } else if (evt.code == "KeyC") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ch' : 'ch');
-          } else if (evt.code == "KeyX") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ch' : 'ch');
-          } else if (evt.code == "KeyE") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ei' : 'ei');
-          } else if (evt.code == "KeyJ") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Äu' : 'äu');
-          } else if (evt.code == "KeyK") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ck' : 'ck');
-          } else if (evt.code == "KeyN") {
-            evt.preventDefault();
-            this.insertFragment(isUppercase ? 'Ng' : 'ng');
+            this.insertFragment(fragment)
           }
+
         }
       }
     })
