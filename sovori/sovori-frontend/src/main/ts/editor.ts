@@ -4,29 +4,30 @@ import {insertFragment} from "./dom/insertFragment.js";
 import {KeyDownEvent} from "./events/KeyDownEvent.js";
 import {InputEvent} from "./events/InputEvent.js";
 import {letterFragment} from "./keyboard/letterFragment.js";
+import {RegisteredEvent} from "./events/RegisteredEvent.js";
 
 
 export class Editor {
 
   private _eventsHandler: CustomDomEvent
+  private  keyDownRegistration: RegisteredEvent<KeyDownEvent>
 
   constructor(private element: Element) {
     this._eventsHandler = new CustomDomEvent(element);
+
+    this.keyDownRegistration = InputEvent.keyDown(this.element);
     this.initEvents();
   }
 
   private initEvents() {
 
-    InputEvent.keyDown(this.element, "editorKeyDown", this._eventsHandler);
-
-    this._eventsHandler.listen("editorKeyDown", event => {
-      let evt = <KeyDownEvent>(<CustomEvent> event).detail;
-
+    return this.keyDownRegistration.on(evt => {
       let fragment = letterFragment(evt, germanLetterHandler);
       if (fragment) {
         this.insertFragment(fragment);
       }
-    });
+    })
+
   }
 
   insertFragment(fragment: string, range?: Range) {
@@ -47,6 +48,10 @@ export class Editor {
     return this.element.textContent || '';
   }
 
+
+  getKeyDownRegistration() : RegisteredEvent<KeyDownEvent> {
+    return this.keyDownRegistration;
+  }
 
   get eventsManager(): CustomDomEvent {
     return this._eventsHandler;

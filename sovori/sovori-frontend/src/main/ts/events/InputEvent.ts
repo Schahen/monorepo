@@ -1,24 +1,23 @@
-import {CustomDomEvent} from "./customDomEvent";
-import {KeyDownEvent} from "./KeyDownEvent";
+import {CustomDomEvent} from "./customDomEvent.js";
+import {KeyDownEvent} from "./KeyDownEvent.js";
+import {RegisteredEvent} from "./RegisteredEvent.js";
+import {registerEvent} from "./RegisterEvent.js";
 
 
 export module InputEvent {
 
-  export let keyDown = (el: Element, eventName: string, customEvent: CustomDomEvent) => {
-    el.addEventListener("keydown", event => {
-      const evt = <KeyboardEvent> event;
-
-      customEvent.trigger(new CustomEvent<KeyDownEvent>(eventName, {
-        detail: {
-          code: evt.code,
-          key: evt.key,
-          altKey: evt.altKey,
-          metaKey: evt.metaKey,
-          shiftKey: evt.shiftKey,
-          capsLock: evt.getModifierState("CapsLock"),
-          preventDefault: () => evt.preventDefault()
-        }
-      }));
+  export let keyDown = (el: Element): RegisteredEvent<KeyDownEvent> => {
+    return registerEvent(el, "keydown", event => {
+     let evt =  <KeyboardEvent> event;
+     return {
+       code: evt.code,
+       key: evt.key,
+       altKey: evt.altKey,
+       metaKey: evt.metaKey,
+       shiftKey: evt.shiftKey,
+       capsLock: evt.getModifierState("CapsLock"),
+       preventDefault: () => evt.preventDefault()
+     }
     });
   }
 
