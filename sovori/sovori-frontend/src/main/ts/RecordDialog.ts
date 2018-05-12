@@ -2,6 +2,9 @@ import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {find} from "./dom/find.js";
 import {CustomDomEvent} from "./customDomEvent.js";
 import {DialogEvents} from "./dialog/DialogEvents.js";
+import {InputEvent} from "./events/InputEvent.js";
+import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
+import {insertFragment} from "./dom/insertFragment.js";
 
 export class RecordDialog extends HtmlDialog {
 
@@ -41,6 +44,10 @@ export class RecordDialog extends HtmlDialog {
 
     this.on(DialogEvents.ONSUBMIT, () => {
       this.close();
+    });
+
+    InputEvent.resolveLetter(InputEvent.keyDown(this.answerInput), germanLetterHandler).on(fragment => {
+      insertFragment(this.answerInput, fragment);
     });
   }
 
