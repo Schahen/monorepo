@@ -1,19 +1,14 @@
 import {RegisteredEvent} from "./RegisteredEvent";
+import {StackedEvent} from "./StackedEvent.js";
 
-export function registerEvent<T>(el: Element, evtName: string, eventFrom: (evt: Event) => T): RegisteredEvent<T> {
+export function registerEvent<T>(el: Element, evtName: string, fromEvent: (evt: Event) => T): RegisteredEvent<T> {
 
-  let handlers: ((evt: T) => void)[] = [];
+  let stackedEvent = new StackedEvent<T>();
 
   el.addEventListener(evtName, event => {
-      let evt = eventFrom(event);
-      for (let handler of handlers) {
-        handler(evt);
-      }
+      let evt = fromEvent(event);
+      stackedEvent.trigger(evt);
   });
 
-  return {
-    on: function(handler: (evt: T) => void) {
-      handlers.push(handler);
-    }
-  }
+  return stackedEvent;
 }
