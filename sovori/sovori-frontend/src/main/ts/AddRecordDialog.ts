@@ -6,7 +6,7 @@ import {InputEvent} from "./events/InputEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 
-export class RecordDialog extends HtmlDialog {
+export class AddRecordDialog   extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private answerInput: HTMLElement;

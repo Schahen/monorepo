@@ -3,7 +3,7 @@ import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {CustomDomEvent} from "./customDomEvent.js";
 import {DialogEvents} from "./dialog/DialogEvents.js";
 
-export class QuestionDialog extends HtmlDialog {
+export class EditRecordDialog extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private closeButton: HTMLButtonElement;

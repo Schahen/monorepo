@@ -1,16 +1,16 @@
 import {find} from "./dom/find.js";
-import {RecordDialog} from "./RecordDialog.js";
+import {AddRecordDialog} from "./AddRecordDialog.js";
 import {CustomDomEvent} from "./customDomEvent.js";
 
 
 export class Footer {
   private addButton: HTMLElement;
-  private recordDialog: RecordDialog;
+  private recordDialog: AddRecordDialog;
   private events: CustomDomEvent;
 
   constructor(footerContainer: Element) {
     this.addButton = find<HTMLElement>(footerContainer, '.footer-add-record');
-    this.recordDialog = new RecordDialog(find<HTMLDialogElement>(document.body, "#recordDialog"));
+    this.recordDialog = new AddRecordDialog(find<HTMLDialogElement>(document.body, "#recordDialog"));
 
     this.events = new CustomDomEvent(footerContainer);
     this.initEvents();

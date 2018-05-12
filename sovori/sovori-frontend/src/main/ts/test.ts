@@ -1,14 +1,13 @@
 import {Editor} from "./editor.js";
 import {Statistics} from "./Statistics.js";
 import {Question} from "./Question.js";
-import {QuestionDialog} from "./QuestionDialog.js";
+import {EditRecordDialog} from "./EditRecordDialog.js";
 import {CourseHttp} from "./api/CourseHttp.js";
 import {TestRecord} from "crossplatform/TestRecord.js";
 import {Footer} from "./Footer.js";
-import {find, findById} from "./dom/find.js";
+import {findById} from "./dom/find.js";
 import {Progress} from "./Progress.js";
 import {CourseEvents} from "./events/CourseEvents.js";
-import {KeyDownEvent} from "./events/KeyDownEvent.js";
 
 export class Test {
   data: TestRecord[] = [];
@@ -18,7 +17,7 @@ export class Test {
   private currentQuestion?: Question;
   private footer: Footer;
   courseId: string;
-  private questionDialog: QuestionDialog;
+  private questionDialog: EditRecordDialog;
   private progress: Progress;
 
   constructor(courseId: string, data: TestRecord[]) {
@@ -29,7 +28,7 @@ export class Test {
     this.answerEditor = new Editor(findById<HTMLElement>("answer"));
 
     this.footer = new Footer(findById<HTMLElement>('footer'));
-    this.questionDialog = new QuestionDialog(findById<HTMLDialogElement>('questionDialog'));
+    this.questionDialog = new EditRecordDialog(findById<HTMLDialogElement>('questionDialog'));
 
     this.progress = new Progress(findById<HTMLElement>('progress'));
 
