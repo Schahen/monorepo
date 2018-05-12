@@ -1,7 +1,8 @@
-import {CustomDomEvent} from "./customDomEvent.js";
+import {CustomDomEvent} from "./events/customDomEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 import {KeyDownEvent} from "./events/KeyDownEvent.js";
+import {InputEvent} from "./events/InputEvent.js";
 
 
 export class Editor {
@@ -14,21 +15,8 @@ export class Editor {
   }
 
   private initEvents() {
-    this.element.addEventListener("keydown", (event: Event) => {
-      const evt = <KeyboardEvent> event;
 
-      this._eventsHandler.trigger(new CustomEvent<KeyDownEvent>("editorKeyDown", {
-        detail: {
-          code: evt.code,
-          key: evt.key,
-          altKey: evt.altKey,
-          metaKey: evt.metaKey,
-          shiftKey: evt.shiftKey,
-          capsLock: evt.getModifierState("CapsLock"),
-          preventDefault: () => evt.preventDefault()
-        }
-      }));
-    });
+    InputEvent.keyDown(this.element, "editorKeyDown", this._eventsHandler);
 
     this._eventsHandler.listen("editorKeyDown", event => {
       let evt = <KeyDownEvent>(<CustomEvent> event).detail;
