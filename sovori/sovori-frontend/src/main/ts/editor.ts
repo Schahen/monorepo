@@ -17,28 +17,35 @@ export class Editor {
     this.element.addEventListener("keydown", (event: Event) => {
       const evt = <KeyboardEvent> event;
 
-      this._eventsHandler.trigger(new CustomEvent<KeyDownEvent>("editorKeyDown", {detail: {
+      this._eventsHandler.trigger(new CustomEvent<KeyDownEvent>("editorKeyDown", {
+        detail: {
           code: evt.code,
           key: evt.key,
+          altKey: evt.altKey,
           metaKey: evt.metaKey,
           shiftKey: evt.shiftKey,
-          capsLock: evt.getModifierState("CapsLock")
-        }}));
+          capsLock: evt.getModifierState("CapsLock"),
+          preventDefault: () => evt.preventDefault()
+        }
+      }));
+    });
+
+    this._eventsHandler.listen("editorKeyDown", event => {
+      let evt = <KeyDownEvent>(<CustomEvent> event).detail;
 
       if (evt.metaKey) {
         if (evt.altKey) {
-          let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
+          let isUppercase = evt.shiftKey || evt.capsLock;
 
           let fragment = germanLetterHandler(evt.code, isUppercase);
 
           if (fragment !== null) {
             evt.preventDefault();
-            this.insertFragment(fragment)
+            this.insertFragment(fragment);
           }
-
         }
       }
-    })
+    });
   }
 
   insertFragment(fragment: string, range?: Range) {

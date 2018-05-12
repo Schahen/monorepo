@@ -8,6 +8,7 @@ import {Footer} from "./Footer.js";
 import {find, findById} from "./dom/find.js";
 import {Progress} from "./Progress.js";
 import {CourseEvents} from "./events/CourseEvents.js";
+import {KeyDownEvent} from "./events/KeyDownEvent";
 
 export class Test {
   data: TestRecord[] = [];
@@ -41,7 +42,7 @@ export class Test {
 
   private initEvents() {
     this.answerEditor.eventsManager.listen("editorKeyDown", (event) => {
-      let evt =  (<CustomEvent> event).detail;
+      let evt =  <KeyDownEvent>(<CustomEvent> event).detail;
       if (evt.metaKey) {
         if (evt.code == "Period") {
           this.progress.updateTotal();
