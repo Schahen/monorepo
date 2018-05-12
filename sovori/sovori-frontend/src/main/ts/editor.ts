@@ -3,6 +3,7 @@ import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 import {KeyDownEvent} from "./events/KeyDownEvent.js";
 import {InputEvent} from "./events/InputEvent.js";
+import {letterFragment} from "./keyboard/letterFragment.js";
 
 
 export class Editor {
@@ -21,17 +22,9 @@ export class Editor {
     this._eventsHandler.listen("editorKeyDown", event => {
       let evt = <KeyDownEvent>(<CustomEvent> event).detail;
 
-      if (evt.metaKey) {
-        if (evt.altKey) {
-          let isUppercase = evt.shiftKey || evt.capsLock;
-
-          let fragment = germanLetterHandler(evt.code, isUppercase);
-
-          if (fragment !== null) {
-            evt.preventDefault();
-            this.insertFragment(fragment);
-          }
-        }
+      let fragment = letterFragment(evt, germanLetterHandler);
+      if (fragment) {
+        this.insertFragment(fragment);
       }
     });
   }
