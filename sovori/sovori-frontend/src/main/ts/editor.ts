@@ -1,6 +1,7 @@
 import {CustomDomEvent} from "./customDomEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
+import {KeyDownEvent} from "./events/KeyDownEvent.js";
 
 
 export class Editor {
@@ -16,11 +17,12 @@ export class Editor {
     this.element.addEventListener("keydown", (event: Event) => {
       const evt = <KeyboardEvent> event;
 
-      this._eventsHandler.trigger(new CustomEvent("editorKeyDown", {detail: {
+      this._eventsHandler.trigger(new CustomEvent<KeyDownEvent>("editorKeyDown", {detail: {
           code: evt.code,
           key: evt.key,
           metaKey: evt.metaKey,
-          shiftKey: evt.shiftKey
+          shiftKey: evt.shiftKey,
+          capsLock: evt.getModifierState("CapsLock")
         }}));
 
       if (evt.metaKey) {
