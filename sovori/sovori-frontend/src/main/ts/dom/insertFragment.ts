@@ -1,6 +1,10 @@
 
 
-export function insertFragment(element: Element, fragment: string, range?: Range) {
+export function insertFragment(element: Element, fragment: string|undefined, range?: Range) {
+  if (fragment === undefined) {
+    return;
+  }
+
   if (!range) {
     range = window.getSelection().getRangeAt(0);
   }

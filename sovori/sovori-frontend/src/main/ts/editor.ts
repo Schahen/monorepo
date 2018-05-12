@@ -3,14 +3,13 @@ import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 import {KeyDownEvent} from "./events/KeyDownEvent.js";
 import {InputEvent} from "./events/InputEvent.js";
-import {letterFragment} from "./keyboard/letterFragment.js";
 import {RegisteredEvent} from "./events/RegisteredEvent.js";
 
 
 export class Editor {
 
   private _eventsHandler: CustomDomEvent
-  private  keyDownRegistration: RegisteredEvent<KeyDownEvent>
+  private keyDownRegistration: RegisteredEvent<KeyDownEvent>
 
   constructor(private element: Element) {
     this._eventsHandler = new CustomDomEvent(element);
@@ -21,16 +20,13 @@ export class Editor {
 
   private initEvents() {
 
-    return this.keyDownRegistration.on(evt => {
-      let fragment = letterFragment(evt, germanLetterHandler);
-      if (fragment) {
-        this.insertFragment(fragment);
-      }
-    })
+    InputEvent.resolveLetter(this.keyDownRegistration, germanLetterHandler).on(fragment => {
+      this.insertFragment(fragment);
+    });
 
   }
 
-  insertFragment(fragment: string, range?: Range) {
+  insertFragment(fragment: string | undefined, range?: Range) {
     insertFragment(this.element, fragment, range);
   }
 
@@ -49,7 +45,7 @@ export class Editor {
   }
 
 
-  getKeyDownRegistration() : RegisteredEvent<KeyDownEvent> {
+  getKeyDownRegistration(): RegisteredEvent<KeyDownEvent> {
     return this.keyDownRegistration;
   }
 

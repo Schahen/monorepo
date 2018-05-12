@@ -1,7 +1,7 @@
-import {CustomDomEvent} from "./customDomEvent.js";
 import {KeyDownEvent} from "./KeyDownEvent.js";
 import {RegisteredEvent} from "./RegisteredEvent.js";
 import {registerEvent} from "./RegisterEvent.js";
+import {LetterHandler} from "../keyboard/LetterHandler.js";
 
 
 export module InputEvent {
@@ -18,6 +18,23 @@ export module InputEvent {
        capsLock: evt.getModifierState("CapsLock"),
        preventDefault: () => evt.preventDefault()
      }
+    });
+  }
+
+  export function resolveLetter(event: RegisteredEvent<KeyDownEvent>, handler: LetterHandler): RegisteredEvent<string|undefined> {
+    return event.on(evt => {
+      if (evt.metaKey) {
+        if (evt.altKey) {
+          let isUppercase = evt.shiftKey || evt.capsLock;
+
+          let fragment = handler(evt.code, isUppercase);
+
+          if (fragment !== null) {
+            evt.preventDefault();
+            return fragment;
+          }
+        }
+      }
     });
   }
 
