@@ -1,4 +1,3 @@
-import {CustomDomEvent} from "./events/customDomEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 import {KeyDownEvent} from "./events/KeyDownEvent.js";
@@ -8,12 +7,9 @@ import {RegisteredEvent} from "./events/RegisteredEvent.js";
 
 export class Editor {
 
-  private _eventsHandler: CustomDomEvent
   private keyDownRegistration: RegisteredEvent<KeyDownEvent>
 
   constructor(private element: Element) {
-    this._eventsHandler = new CustomDomEvent(element);
-
     this.keyDownRegistration = InputEvent.keyDown(this.element);
     this.initEvents();
   }
@@ -49,8 +45,5 @@ export class Editor {
     return this.keyDownRegistration;
   }
 
-  get eventsManager(): CustomDomEvent {
-    return this._eventsHandler;
-  }
 }
 

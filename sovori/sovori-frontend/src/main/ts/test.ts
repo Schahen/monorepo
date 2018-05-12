@@ -54,7 +54,8 @@ export class Test {
       }
     });
 
-    this.answerEditor.eventsManager.listen(CourseEvents.RIGHT_ANSWER, () => {
+
+    CourseEvents.RIGHT_ANSWER.on(() => {
       this.stats.registerRight();
       this.questionElement.classList.add("is-correct");
       this.showStats();
@@ -63,13 +64,14 @@ export class Test {
       this.progress.updateCount();
     });
 
-    this.answerEditor.eventsManager.listen(CourseEvents.WRONG_ANSWER, () => {
+    CourseEvents.WRONG_ANSWER.on(() => {
       this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
 
       this.progress.updateTotal();
     });
+
 
     this.questionElement.addEventListener("dblclick", evt => {
       this.questionDialog.open();
@@ -91,9 +93,6 @@ export class Test {
     });
   }
 
-  private triggerEvent(eventName: CourseEvents) {
-    this.answerEditor.eventsManager.trigger(new CustomEvent(eventName));
-  }
 
   private nextQuestion(): Question {
     let testRecord = this.data[Math.floor(Math.random() * this.data.length)];
@@ -103,9 +102,9 @@ export class Test {
   private check(givenAnswer: string) {
     if (this.currentQuestion) {
       if (!this.currentQuestion.check(givenAnswer)) {
-        this.triggerEvent(CourseEvents.WRONG_ANSWER);
+        CourseEvents.WRONG_ANSWER.trigger(true);
       } else {
-        this.triggerEvent(CourseEvents.RIGHT_ANSWER);
+        CourseEvents.RIGHT_ANSWER.trigger(true);
       }
     }
   }
