@@ -1,5 +1,6 @@
 import {CustomDomEvent} from "./customDomEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
+import {insertFragment} from "./dom/insertFragment.js";
 
 
 export class Editor {
@@ -21,6 +22,7 @@ export class Editor {
           metaKey: evt.metaKey,
           shiftKey: evt.shiftKey
         }}));
+
       if (evt.metaKey) {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.getModifierState("CapsLock");
@@ -38,15 +40,7 @@ export class Editor {
   }
 
   insertFragment(fragment: string, range?: Range) {
-    if (!range) {
-      range = window.getSelection().getRangeAt(0);
-    }
-
-    range.deleteContents();
-    range.insertNode(document.createTextNode(fragment));
-    range.collapse(false);
-
-    this.element.normalize();
+    insertFragment(this.element, fragment, range);
   }
 
   replace(value: string) {
