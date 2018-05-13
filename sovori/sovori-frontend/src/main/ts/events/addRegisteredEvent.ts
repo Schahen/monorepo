@@ -12,3 +12,11 @@ export function addRegisteredEvent<T, E extends Event>(el: Element, evtName: str
 
   return stackedEvent;
 }
+
+export function registerKeypress<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) {
+  return addRegisteredEvent<T, KeyboardEvent>(el, "keypress", fromEvent);
+}
+
+export function registerKeydown<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) {
+  return addRegisteredEvent<T, KeyboardEvent>(el, "keydown", fromEvent);
+}
