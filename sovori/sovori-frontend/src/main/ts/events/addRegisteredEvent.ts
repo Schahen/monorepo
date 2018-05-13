@@ -13,10 +13,14 @@ export function addRegisteredEvent<T, E extends Event>(el: Element, evtName: str
   return stackedEvent;
 }
 
-export function registerKeypress<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) {
-  return addRegisteredEvent<T, KeyboardEvent>(el, "keypress", fromEvent);
+function registerKeyboard<T>(el: Element, evtName: string, fromEvent: (evt: KeyboardEvent) => T) : RegisteredEvent<T> {
+  return addRegisteredEvent<T, KeyboardEvent>(el, evtName, fromEvent);
 }
 
-export function registerKeydown<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) {
-  return addRegisteredEvent<T, KeyboardEvent>(el, "keydown", fromEvent);
+export function registerKeypress<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) : RegisteredEvent<T> {
+  return registerKeyboard<T>(el, "keypress", fromEvent);
+}
+
+export function registerKeydown<T>(el: Element, fromEvent: (evt: KeyboardEvent) => T) : RegisteredEvent<T> {
+  return registerKeyboard<T>(el, "keydown", fromEvent);
 }
