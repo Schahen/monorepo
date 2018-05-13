@@ -2,6 +2,7 @@ import {find} from "./dom/find.js";
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {StackedEvent} from "./events/StackedEvent.js";
 import {RegisteredEvent} from "./events/RegisteredEvent.js";
+import {withClick, withKeyPress} from "./events/addRegisteredEvent.js";
 
 export type EditRecordData = {
   question: string
@@ -26,19 +27,14 @@ export class EditRecordDialog extends HtmlDialog {
   }
 
   initEvents() {
-    this.questionInput.addEventListener("keypress", evt => {
+    withKeyPress(this.questionInput).on(evt => {
       if (evt.code == "Enter") {
         this.save();
       }
-    });
+    })
 
-    this.closeButton.addEventListener("click", evt => {
-      this.close();
-    });
-
-    this.saveButton.addEventListener("click", evt => {
-      this.save();
-    });
+    withClick(this.closeButton).on(this.close);
+    withClick(this.saveButton).on(this.save);
 
     this.openEvent.on(() => {
       this.questionInput.focus();

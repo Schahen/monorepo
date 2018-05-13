@@ -5,7 +5,7 @@ import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
 import {RegisteredEvent} from "./events/RegisteredEvent.js";
 import {StackedEvent} from "./events/StackedEvent.js";
-import {addRegisteredEvent} from "./events/addRegisteredEvent.js";
+import {registerClick, withClick} from "./events/addRegisteredEvent.js";
 
 export type AddRecordData = {
   question: string,
@@ -30,13 +30,11 @@ export class AddRecordDialog extends HtmlDialog {
 
   initEvents() {
     let cancelButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogCancel');
-    cancelButton.addEventListener("click", evt => {
-      this.close();
-    });
+    withClick(cancelButton).on(this.close);
 
     let saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogSave');
 
-    addRegisteredEvent(saveButton, "click", evt => ({
+    registerClick(saveButton, evt => ({
       question: this.questionInput.value,
       answer: this.answerInput.innerText
     })).delegate(this.submitEvent);
