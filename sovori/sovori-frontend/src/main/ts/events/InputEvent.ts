@@ -7,8 +7,7 @@ import {LetterHandler} from "../keyboard/LetterHandler.js";
 export module InputEvent {
 
   export let keyDown = (el: Element): RegisteredEvent<KeyDownEvent> => {
-    return addRegisteredEvent(el, "keydown", event => {
-     let evt =  <KeyboardEvent> event;
+    return addRegisteredEvent<KeyDownEvent, KeyboardEvent>(el, "keydown", evt => {
      return {
        code: evt.code,
        key: evt.key,
