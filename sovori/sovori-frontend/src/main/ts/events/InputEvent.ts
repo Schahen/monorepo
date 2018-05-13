@@ -1,13 +1,13 @@
 import {KeyDownEvent} from "./KeyDownEvent.js";
 import {RegisteredEvent} from "./RegisteredEvent.js";
-import {registerEvent} from "./RegisterEvent.js";
+import {addRegisteredEvent} from "./addRegisteredEvent.js";
 import {LetterHandler} from "../keyboard/LetterHandler.js";
 
 
 export module InputEvent {
 
   export let keyDown = (el: Element): RegisteredEvent<KeyDownEvent> => {
-    return registerEvent(el, "keydown", event => {
+    return addRegisteredEvent(el, "keydown", event => {
      let evt =  <KeyboardEvent> event;
      return {
        code: evt.code,
