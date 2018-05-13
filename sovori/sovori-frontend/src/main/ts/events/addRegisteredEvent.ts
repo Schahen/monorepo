@@ -25,6 +25,6 @@ export function registerKeydown<T>(el: Element, fromEvent: (evt: KeyboardEvent) 
   return registerKeyboard<T>(el, "keydown", fromEvent);
 }
 
-export function registerClick<T>(el: Element, fromEvent: (evt: MouseEvent) => T) {
+export function registerClick<T>(el: Element, fromEvent: (evt: MouseEvent) => T) : RegisteredEvent<T> {
   return addRegisteredEvent<T, MouseEvent>(el, "click", fromEvent);
 }
