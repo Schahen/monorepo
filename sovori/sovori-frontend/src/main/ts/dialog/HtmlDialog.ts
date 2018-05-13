@@ -1,17 +1,16 @@
 import {Dialog} from "./Dialog";
-import {find} from "../dom/find";
 import {getGlobalEvents} from "../globalEvents.js";
-import {CustomDomEvent} from "../customDomEvent.js";
-import {DialogEvents} from "./DialogEvents.js";
-
+import {RegisteredEvent} from "../events/RegisteredEvent.js";
+import {StackedEvent} from "../events/StackedEvent.js";
 
 export class HtmlDialog implements Dialog {
   private container: HTMLDialogElement;
-  private _events: CustomDomEvent;
+
+  protected openEvent: RegisteredEvent<null> = new StackedEvent();
+  protected closeEvent: RegisteredEvent<null> = new StackedEvent();
 
   constructor(container: HTMLDialogElement) {
     this.container = container;
-    this._events = new CustomDomEvent(container);
 
     getGlobalEvents().listen("KEY_ESC", evt => {
       if (this.container.open) {
@@ -22,18 +21,12 @@ export class HtmlDialog implements Dialog {
 
   close() {
     this.container.open = false;
-    this._events.trigger(new CustomEvent(DialogEvents.ONCLOSE));
+    this.closeEvent.trigger(null);
   }
 
   open() {
     this.container.open = true;
-    this._events.trigger(new CustomEvent(DialogEvents.ONOPEN));
-  }
-
-  on(event: DialogEvents, handler: () => void) {
-    this._events.listen(event, evt => {
-      handler();
-    });
+    this.openEvent.trigger(null);
   }
 
   getDialogContainer() {

@@ -1,7 +1,6 @@
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {find} from "./dom/find.js";
 import {CustomDomEvent} from "./customDomEvent.js";
-import {DialogEvents} from "./dialog/DialogEvents.js";
 import {InputEvent} from "./events/InputEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
@@ -14,7 +13,7 @@ export type AddRecordData = {
   answer: string
 }
 
-export class AddRecordDialog   extends HtmlDialog {
+export class AddRecordDialog extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private answerInput: HTMLElement;
@@ -45,7 +44,7 @@ export class AddRecordDialog   extends HtmlDialog {
       answer: this.answerInput.innerText
     })).delegate(this.submitEvent);
 
-    this.on(DialogEvents.ONOPEN, () => {
+    this.openEvent.on(() => {
       this.questionInput.focus();
     });
 
