@@ -1,6 +1,5 @@
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
 import {find} from "./dom/find.js";
-import {CustomDomEvent} from "./customDomEvent.js";
 import {InputEvent} from "./events/InputEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
@@ -17,7 +16,6 @@ export class AddRecordDialog extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private answerInput: HTMLElement;
-  private events: CustomDomEvent;
 
   private submitEvent: RegisteredEvent<AddRecordData> = new StackedEvent();
 
@@ -27,7 +25,6 @@ export class AddRecordDialog extends HtmlDialog {
     this.questionInput = find<HTMLInputElement>(container, '.recordDialogQuestion');
     this.answerInput = find<HTMLElement>(container, '.recordDialogAnswer');
 
-    this.events = new CustomDomEvent(container);
     this.initEvents();
   }
 
