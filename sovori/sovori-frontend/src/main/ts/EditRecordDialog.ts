@@ -1,6 +1,11 @@
 import {find} from "./dom/find.js";
 import {HtmlDialog} from "./dialog/HtmlDialog.js";
-import {CustomDomEvent} from "./customDomEvent.js";
+import {StackedEvent} from "./events/StackedEvent.js";
+import {RegisteredEvent} from "./events/RegisteredEvent.js";
+
+export type EditRecordData = {
+  question: string
+}
 
 export class EditRecordDialog extends HtmlDialog {
 
@@ -8,7 +13,7 @@ export class EditRecordDialog extends HtmlDialog {
   private closeButton: HTMLButtonElement;
   private saveButton: HTMLButtonElement;
 
-  private events: CustomDomEvent;
+  private submitEvent: RegisteredEvent<EditRecordData> = new StackedEvent();
 
   constructor(container: HTMLDialogElement) {
     super(container);
@@ -17,12 +22,10 @@ export class EditRecordDialog extends HtmlDialog {
     this.closeButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-close');
     this.saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.question-dialog-save');
 
-    this.events = new CustomDomEvent(container);
     this.initEvents();
   }
 
   initEvents() {
-
     this.questionInput.addEventListener("keypress", evt => {
       if (evt.code == "Enter") {
         this.save();
@@ -43,17 +46,15 @@ export class EditRecordDialog extends HtmlDialog {
   }
 
   save() {
-    this.events.trigger(new CustomEvent("save", {
-      detail: {
-        question: this.questionInput.value
-      }
-    }));
+    this.submitEvent.trigger({
+      question: this.questionInput.value
+    });
+
   }
 
-  onSave(handler: (question: string) => void) {
-    this.events.listen("save", evt => {
-      let question = <string>(<CustomEvent>evt).detail.question;
-      handler(question);
+  onSave(handler: (record: EditRecordData) => void) {
+    this.submitEvent.on(record => {
+      handler(record);
     });
   }
 

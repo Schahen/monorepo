@@ -77,7 +77,8 @@ export class Test {
       this.questionDialog.open();
       this.questionDialog.setQuestion(this.questionElement.dataset.question || "");
 
-      this.questionDialog.onSave(question => {
+      this.questionDialog.onSave(record => {
+        let question = record.question;
         if (this.currentQuestion != null) {
           new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
           this.questionDialog.close();
