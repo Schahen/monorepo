@@ -15,9 +15,7 @@ export class StackedEvent<T> implements RegisteredEvent<T>{
     let event = new StackedEvent<R>();
 
     this.handlers.push(data => {
-      if (data !== undefined) {
-        event.trigger(handler(data))
-      }
+      event.trigger(handler(data))
     });
 
     return event;
