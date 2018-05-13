@@ -23,4 +23,10 @@ export class StackedEvent<T> implements RegisteredEvent<T>{
     return event;
   }
 
+  delegate(to: RegisteredEvent<T>): void {
+    this.on(data => {
+      to.trigger(data);
+    })
+  }
+
 }
