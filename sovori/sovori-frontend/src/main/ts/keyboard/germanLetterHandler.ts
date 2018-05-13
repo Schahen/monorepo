@@ -22,10 +22,16 @@ export let germanLetterHandler = ((): LetterHandler => (code: string, isUppercas
     return isUppercase ? 'Äu' : 'äu';
   } else if (code == "KeyK") {
     return isUppercase ? 'Ck' : 'ck';
-  } else if (code == "KeyN") {
-    return isUppercase ? 'Ng' : 'ng';
+  } else if (code == "KeyG") {
+    return isUppercase ? 'ng' : 'ng';
   } else if (code == "KeyR") {
     return isUppercase ? 'Er' : 'er';
+  } else if (code == "KeyH") {
+    return isUppercase ? 'Eh' : 'eh';
+  } else if (code == "KeyM") {
+    return isUppercase ? 'Em' : 'em';
+  } else if (code == "KeyN") {
+    return isUppercase ? 'En' : 'en';
   }
 
   return null;
