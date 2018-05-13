@@ -33,8 +33,12 @@ export class EditRecordDialog extends HtmlDialog {
       }
     })
 
-    withClick(this.closeButton).on(this.close);
-    withClick(this.saveButton).on(this.save);
+    withClick(this.closeButton).on(() => {
+      this.close();
+    });
+    withClick(this.saveButton).on(() => {
+      this.save();
+    });
 
     this.openEvent.on(() => {
       this.questionInput.focus();
