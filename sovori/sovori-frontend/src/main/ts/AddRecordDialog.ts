@@ -5,12 +5,22 @@ import {DialogEvents} from "./dialog/DialogEvents.js";
 import {InputEvent} from "./events/InputEvent.js";
 import {germanLetterHandler} from "./keyboard/germanLetterHandler.js";
 import {insertFragment} from "./dom/insertFragment.js";
+import {RegisteredEvent} from "./events/RegisteredEvent.js";
+import {StackedEvent} from "./events/StackedEvent.js";
+import {addRegisteredEvent} from "./events/addRegisteredEvent.js";
+
+export type AddRecordData = {
+  question: string,
+  answer: string
+}
 
 export class AddRecordDialog   extends HtmlDialog {
 
   private questionInput: HTMLInputElement;
   private answerInput: HTMLElement;
   private events: CustomDomEvent;
+
+  private submitEvent: RegisteredEvent<AddRecordData> = new StackedEvent();
 
   constructor(container: HTMLDialogElement) {
     super(container);
@@ -29,20 +39,17 @@ export class AddRecordDialog   extends HtmlDialog {
     });
 
     let saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogSave');
-    saveButton.addEventListener("click", evt => {
-      this.events.trigger(new CustomEvent(DialogEvents.ONSUBMIT, {
-        detail: {
-          question: this.questionInput.value,
-          answer: this.answerInput.innerText
-        }
-      }));
-    });
+
+    addRegisteredEvent(saveButton, "click", evt => ({
+      question: this.questionInput.value,
+      answer: this.answerInput.innerText
+    })).delegate(this.submitEvent);
 
     this.on(DialogEvents.ONOPEN, () => {
       this.questionInput.focus();
     });
 
-    this.on(DialogEvents.ONSUBMIT, () => {
+    this.submitEvent.on(() => {
       this.close();
     });
 
@@ -51,12 +58,8 @@ export class AddRecordDialog   extends HtmlDialog {
     });
   }
 
-  onSave(handler: (question: string, answer: string) => void) {
-    this.events.listen(DialogEvents.ONSUBMIT, evt => {
-      let question = <string>(<CustomEvent>evt).detail.question;
-      let answer = <string>(<CustomEvent>evt).detail.answer;
-      handler(question, answer);
-    });
+  getSubmitEvent() {
+    return this.submitEvent;
   }
 
 }

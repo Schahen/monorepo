@@ -85,7 +85,9 @@ export class Test {
       })
     });
 
-    this.footer.onAddRecord((question: string, answer: string) => {
+    this.footer.getAddRecordEvent().on(record => {
+      let {question, answer} = record;
+
       new CourseHttp(this.courseId).add({
         q: question,
         a: answer

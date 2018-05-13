@@ -1,18 +1,18 @@
 import {find} from "./dom/find.js";
-import {AddRecordDialog} from "./AddRecordDialog.js";
-import {CustomDomEvent} from "./customDomEvent.js";
+import {AddRecordData, AddRecordDialog} from "./AddRecordDialog.js";
+import {StackedEvent} from "./events/StackedEvent.js";
+import {RegisteredEvent} from "./events/RegisteredEvent.js";
 
 
 export class Footer {
   private addButton: HTMLElement;
   private recordDialog: AddRecordDialog;
-  private events: CustomDomEvent;
+  private submitEvent: RegisteredEvent<AddRecordData> = new StackedEvent();
 
   constructor(footerContainer: Element) {
     this.addButton = find<HTMLElement>(footerContainer, '.footer-add-record');
     this.recordDialog = new AddRecordDialog(find<HTMLDialogElement>(document.body, "#recordDialog"));
 
-    this.events = new CustomDomEvent(footerContainer);
     this.initEvents();
   }
 
@@ -21,21 +21,10 @@ export class Footer {
       this.recordDialog.open();
     });
 
-    this.recordDialog.onSave((question: string, answer: string) => {
-      this.events.trigger(new CustomEvent("addrecord", {
-        detail: {
-          question: question,
-          answer: answer
-        }
-      }));
-    });
+    this.recordDialog.getSubmitEvent().delegate(this.submitEvent);
   }
 
-  onAddRecord(handler: (question: string, answer: string) => void) {
-    this.events.listen("addrecord", evt => {
-      let question = <string>(<CustomEvent>evt).detail.question;
-      let answer = <string>(<CustomEvent>evt).detail.answer;
-      handler(question, answer);
-    });
+  getAddRecordEvent() {
+    return this.submitEvent;
   }
 }
