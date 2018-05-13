@@ -2,6 +2,7 @@ import {find} from "./dom/find.js";
 import {AddRecordData, AddRecordDialog} from "./AddRecordDialog.js";
 import {StackedEvent} from "./events/StackedEvent.js";
 import {RegisteredEvent} from "./events/RegisteredEvent.js";
+import {getGlobalEvents} from "./globalEvents.js";
 
 
 export class Footer {
@@ -22,6 +23,10 @@ export class Footer {
     });
 
     this.recordDialog.getSubmitEvent().delegate(this.submitEvent);
+
+    getGlobalEvents().listen("ADD_RECORD", evt => {
+      this.recordDialog.open();
+    });
   }
 
   getAddRecordEvent() {

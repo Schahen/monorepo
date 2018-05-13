@@ -12,6 +12,14 @@ let main = async function () {
     if (evt.key == "Escape") {
       globalEvents.trigger(new CustomEvent("KEY_ESC"));
     }
+
+    if (evt.metaKey && evt.shiftKey) {
+      if (evt.code == "KeyA") {
+        globalEvents.trigger(new CustomEvent("ADD_RECORD"));
+      } else if (evt.code == "KeyE") {
+        globalEvents.trigger(new CustomEvent("EDIT_RECORD"));
+      }
+    }
   });
 
   let router = new LocalRouter();
