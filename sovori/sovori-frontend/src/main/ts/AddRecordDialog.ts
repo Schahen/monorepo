@@ -30,7 +30,9 @@ export class AddRecordDialog extends HtmlDialog {
 
   initEvents() {
     let cancelButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogCancel');
-    withClick(cancelButton).on(this.close);
+    withClick(cancelButton).on(() => {
+      this.close();
+    });
 
     let saveButton = find<HTMLButtonElement>(this.getDialogContainer(), '.recordDialogSave');
 
