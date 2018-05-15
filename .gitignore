@@ -12,3 +12,6 @@ target
 node_modules
 .idea
 gradle
+
+
+generated

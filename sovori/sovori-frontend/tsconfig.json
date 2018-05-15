@@ -11,7 +11,8 @@
     "paths": {
       "*": [
         "src/main/ts/*",
-        "../sovori-crossplatform/src/main/ts/*"
+        "../sovori-crossplatform/src/main/ts/*",
+        "build/templates/*"
 
       ]
     }

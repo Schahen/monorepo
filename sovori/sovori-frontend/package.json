@@ -13,5 +13,8 @@
     "pug-cli": "^1.0.0-alpha6",
     "tslint": "^5.9.1",
     "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "pug-module": "^1.1.4"
   }
 }

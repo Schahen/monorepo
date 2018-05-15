@@ -14,11 +14,27 @@ task compilePug(type: Exec) {
   commandLine "node", "node_modules/pug-cli/index.js", "src/main/pug/", "-o", "${project.buildDir}"
 }
 
-task compileTemplates(type: Exec) {
-  commandLine "node", "node_modules/pug-cli/index.js", "src/main/templates", "-c", "-o", "${project.buildDir}/templates"
+
+
+task compileTemplates  {
+  doLast {
+    FileTree ioTree = fileTree(dir: "src/main/templates")
+    ioTree.each { f ->
+      def targetName = f.name.replace('.pug', '.ts')
+      def proc  = "node build-scripts/pug-ts.js --files ${f}".execute();
+      proc.waitFor();
+      def target = "${projectDir}/src/main/ts/generated/${targetName}"
+      println("${f} => ${target}")
+      new File(target).text = proc.in.text;
+      print proc.err.text;
+    }
+  }
 }
 
+
 task build {}
+
+ts.dependsOn 'compileTemplates'
 
 build.dependsOn 'compilePug'
 build.dependsOn 'less'
