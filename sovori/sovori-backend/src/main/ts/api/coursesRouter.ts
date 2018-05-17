@@ -7,8 +7,9 @@ import {CourseDB} from "./CourseDB";
 import {questionRouter} from "./questionRouter";
 import {ErrorMessages} from "./error_messages";
 import {RecordResponse} from "crossplatform/RecordResponse";
+import * as WebSocket from 'ws';
 
-export function coursesRouter(): Router {
+export function coursesRouter(websocket: WebSocket): Router {
 
   const router = express.Router();
 
@@ -19,7 +20,7 @@ export function coursesRouter(): Router {
     next();
   });
 
-  router.use("/:courseid/record", questionRouter());
+  router.use("/:courseid/record", questionRouter(websocket));
 
   router.get('/:courseid', (req, res) => {
     jsonResponse(res, new CourseDB(req.params.courseid).all());
