@@ -21,7 +21,7 @@ task compileTemplates  {
     FileTree ioTree = fileTree(dir: "src/main/templates")
     ioTree.each { f ->
       def targetName = f.name.replace('.pug', '.ts')
-      def proc  = "node build-scripts/pug-ts.js --files ${f}".execute();
+      def proc  = "node ${projectDir}/build-scripts/pug-ts.js --files ${f}".execute();
       proc.waitFor();
       def target = "${projectDir}/src/main/ts/generated/${targetName}"
       println("${f} => ${target}")
