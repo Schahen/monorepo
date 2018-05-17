@@ -1,5 +1,5 @@
 import * as low from 'lowdb';
-import {AdapterSync, Lowdb} from 'lowdb';
+import {AdapterSync, LowdbSync} from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as path from "path";
 import {ErrorMessages} from "./error_messages";
@@ -10,7 +10,7 @@ import {getDataDir} from "./dataDir";
 export class CourseDB implements Course<any> {
 
   private id:string;
-  private db:Lowdb<any, AdapterSync<any>>;
+  private db: LowdbSync<any>;
 
   constructor(id: string) {
     this.id = id;
