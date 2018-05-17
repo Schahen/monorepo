@@ -13,6 +13,7 @@
     "@types/lowdb": "^1.0.0",
     "@types/node": "^9.4.0",
     "@types/shortid": "0.0.29",
+    "@types/ws": "^5.1.1",
     "express": "^4.16.2",
     "nodemon": "^1.17.3",
     "typescript": "^2.8.1"
@@ -20,6 +21,11 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "lowdb": "^1.0.0",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "ws": "^5.1.1"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^3.0.5",
+    "utf-8-validate": "^4.0.2"
   }
 }
