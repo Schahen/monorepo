@@ -22,7 +22,7 @@ function startWebsocketServer(port: number) {
       resolve(webSocket);
 
       webSocket.on('message', function incoming(message) {
-        console.log('[ws] ', message);
+        console.log('[ws] message received', message);
       });
 
     });

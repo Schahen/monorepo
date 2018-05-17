@@ -4,7 +4,27 @@ import {State} from "./State.js";
 import {CourseHttp} from "./api/CourseHttp.js";
 import {getGlobalEvents} from "./globalEvents.js";
 
-let main = async function () {
+
+async function openSocket(): Promise<WebSocket> {
+  let url = 'ws://127.0.0.1:4001';
+  var socket = new WebSocket("ws://127.0.0.1:4001", ["protocolOne", "protocolTwo"]);
+
+  socket.onmessage = function(message) {
+    console.log("message", message);
+  }
+
+  return new Promise<WebSocket>(resolve => {
+    socket.onopen = function() {
+      resolve(socket);
+      socket.send("client websocket opened");
+    }
+  });
+
+
+}
+
+
+async function main() {
 
   let globalEvents = getGlobalEvents()
 
