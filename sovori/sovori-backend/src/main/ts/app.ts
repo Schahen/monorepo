@@ -19,6 +19,8 @@ function startWebsocketServer(port: number) {
 
     webSocketServer.on('connection', function connection(webSocket) {
 
+      console.log("[ws] connection established");
+
       resolve(webSocket);
 
       webSocket.on('message', function incoming(message) {

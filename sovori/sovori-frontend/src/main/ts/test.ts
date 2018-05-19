@@ -72,18 +72,17 @@ export class Test {
       this.progress.updateTotal();
     });
 
+    this.questionDialog.onSave(record => {
+      let question = record.question;
+      if (this.currentQuestion != null) {
+        new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
+        this.questionDialog.close();
+      }
+    });
 
     this.questionElement.addEventListener("dblclick", evt => {
       this.questionDialog.open();
       this.questionDialog.setQuestion(this.questionElement.dataset.question || "");
-
-      this.questionDialog.onSave(record => {
-        let question = record.question;
-        if (this.currentQuestion != null) {
-          new CourseHttp(this.courseId).updateQuestion(this.currentQuestion.id, question);
-          this.questionDialog.close();
-        }
-      })
     });
 
     this.footer.getAddRecordEvent().on(record => {
