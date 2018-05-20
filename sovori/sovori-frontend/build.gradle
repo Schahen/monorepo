@@ -2,6 +2,10 @@ plugins {
   id "com.moowork.node" version "0.12"
 }
 
+task yarnInstall(type: Exec) {
+  commandLine "node_modules/yarn/bin/yarn", "install"
+}
+
 task less(type: Exec) {
   commandLine "node", "node_modules/less/bin/lessc", "--verbose", "src/main/less/all.less", "${project.buildDir}/css/all.css"
 }
@@ -13,7 +17,6 @@ task ts(type: Exec) {
 task compilePug(type: Exec) {
   commandLine "node", "node_modules/pug-cli/index.js", "src/main/pug/", "-o", "${project.buildDir}"
 }
-
 
 
 task compileTemplates  {

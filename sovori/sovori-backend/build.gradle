@@ -7,6 +7,9 @@ task ts(type: Exec) {
   commandLine "node", "node_modules/typescript/bin/tsc"
 }
 
+task yarnInstall(type: Exec) {
+  commandLine "node_modules/yarn/bin/yarn", "install"
+}
 
 task build {}
 
