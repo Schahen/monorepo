@@ -1,0 +1,8 @@
+{
+  "name": "sovori-crossplatform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Shagen Ogandzhanian",
+  "license": "UNLICENSED",
+  "private": true
+}
