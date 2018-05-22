@@ -1,5 +1,6 @@
+import {KeyDownEvent} from "../events/KeyDownEvent.js";
 
 
 export interface LetterHandler {
-  (code: string, shift: boolean) : string | null;
+  (data: KeyDownEvent) : string | null;
 }

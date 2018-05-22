@@ -47,7 +47,7 @@ export module InputEvent {
         if (evt.altKey) {
           let isUppercase = evt.shiftKey || evt.capsLock;
 
-          let fragment = handler(evt.code, isUppercase);
+          let fragment = handler(evt);
 
           if (fragment !== null) {
             evt.preventDefault();

@@ -1,43 +1,46 @@
 import {LetterHandler} from "./LetterHandler.js";
+import {KeyDownEvent} from "../events/KeyDownEvent.js";
 
 
-export let germanLetterHandler = ((): LetterHandler => (code: string, isUppercase: boolean): string | null => {
+export let germanLetterHandler = ((): LetterHandler => (data: KeyDownEvent): string | null => {
+  const {code} = data;
+  const isUpperCase = data.capsLock || data.shiftKey;
   if (code == "KeyS") {
-    return isUppercase ? 'Sch' : 'sch';
+    return isUpperCase ? 'Sch' : 'sch';
   } else if (code == "KeyT") {
-    return isUppercase ? 'st' : 'st';
+    return isUpperCase ? 'st' : 'st';
   } else if (code == "KeyO") {
-    return isUppercase ? 'Ö' : 'ö';
+    return isUpperCase ? 'Ö' : 'ö';
   } else if (code == "KeyU") {
-    return isUppercase ? 'Ü' : 'ü';
+    return isUpperCase ? 'Ü' : 'ü';
   } else if (code == "KeyA") {
-    return isUppercase ? 'Ä' : 'ä';
+    return isUpperCase ? 'Ä' : 'ä';
   } else if (code == "KeyC") {
-    return isUppercase ? 'Ch' : 'ch';
+    return isUpperCase ? 'Ch' : 'ch';
   } else if (code == "KeyX") {
-    return isUppercase ? 'Ch' : 'ch';
+    return isUpperCase ? 'Ch' : 'ch';
   } else if (code == "KeyE") {
-    return isUppercase ? 'Ei' : 'ei'
+    return isUpperCase ? 'Ei' : 'ei'
   } else if (code == "KeyJ") {
-    return isUppercase ? 'Äu' : 'äu';
+    return isUpperCase ? 'Äu' : 'äu';
   } else if (code == "KeyK") {
-    return isUppercase ? 'Ck' : 'ck';
+    return isUpperCase ? 'Ck' : 'ck';
   } else if (code == "KeyG") {
-    return isUppercase ? 'ng' : 'ng';
+    return isUpperCase ? 'ng' : 'ng';
   } else if (code == "KeyR") {
-    return isUppercase ? 'Er' : 'er';
+    return isUpperCase ? 'Er' : 'er';
   } else if (code == "KeyH") {
-    return isUppercase ? 'Eh' : 'eh';
+    return isUpperCase ? 'Eh' : 'eh';
   } else if (code == "KeyM") {
-    return isUppercase ? 'Em' : 'em';
+    return isUpperCase ? 'Em' : 'em';
   } else if (code == "KeyN") {
-    return isUppercase ? 'En' : 'en';
+    return isUpperCase ? 'En' : 'en';
   } else if (code == "KeyB") {
-    return isUppercase ? 'Be' : 'be';
+    return isUpperCase ? 'Be' : 'be';
   } else if (code == "KeyV") {
-    return isUppercase ? 'Vo' : 'vo';
+    return isUpperCase ? 'Vo' : 'vo';
   } else if (code == "KeyI") {
-    return isUppercase ? 'Ie' : 'ie';
+    return isUpperCase ? 'Ie' : 'ie';
   }
 
   return null;
