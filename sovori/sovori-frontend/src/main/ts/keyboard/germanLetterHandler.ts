@@ -5,7 +5,7 @@ export let germanLetterHandler = ((): LetterHandler => (code: string, isUppercas
   if (code == "KeyS") {
     return isUppercase ? 'Sch' : 'sch';
   } else if (code == "KeyT") {
-    return isUppercase ? 'Tsch' : 'tsch';
+    return isUppercase ? 'st' : 'st';
   } else if (code == "KeyO") {
     return isUppercase ? 'Ö' : 'ö';
   } else if (code == "KeyU") {
@@ -32,6 +32,12 @@ export let germanLetterHandler = ((): LetterHandler => (code: string, isUppercas
     return isUppercase ? 'Em' : 'em';
   } else if (code == "KeyN") {
     return isUppercase ? 'En' : 'en';
+  } else if (code == "KeyB") {
+    return isUppercase ? 'Be' : 'be';
+  } else if (code == "KeyV") {
+    return isUppercase ? 'Vo' : 'vo';
+  } else if (code == "KeyI") {
+    return isUppercase ? 'Ie' : 'ie';
   }
 
   return null;
