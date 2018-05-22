@@ -3,7 +3,7 @@ import {KeyDownEvent} from "../events/KeyDownEvent.js";
 
 
 export let germanLetterHandler = ((): LetterHandler => (data: KeyDownEvent): string | null => {
-  const {code} = data;
+  const {code, leftMetaKey, rightMetaKey} = data;
   const isUpperCase = data.capsLock || data.shiftKey;
   if (code == "KeyS") {
     return isUpperCase ? 'Sch' : 'sch';
@@ -12,6 +12,9 @@ export let germanLetterHandler = ((): LetterHandler => (data: KeyDownEvent): str
   } else if (code == "KeyO") {
     return isUpperCase ? 'Ö' : 'ö';
   } else if (code == "KeyU") {
+    if (rightMetaKey) {
+      return isUpperCase ? 'Au' : 'au';
+    }
     return isUpperCase ? 'Ü' : 'ü';
   } else if (code == "KeyA") {
     return isUpperCase ? 'Ä' : 'ä';
