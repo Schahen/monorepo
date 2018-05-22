@@ -8,17 +8,7 @@ export module InputEvent {
 
   export let keyDown = (el: Element): RegisteredEvent<KeyDownEvent> => {
 
-    el.addEventListener("keydown", evt => {
-      console.log("DEBG ", evt);
-    });
-
-
-    el.addEventListener("keyup", evt => {
-      console.log("DEBG ", evt);
-    });
-
     return registerKeydown<KeyDownEvent>(el,  evt => {
-      console.log(evt);
 
      return {
        code: evt.code,
