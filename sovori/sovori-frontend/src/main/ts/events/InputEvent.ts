@@ -25,13 +25,17 @@ export module InputEvent {
 
     return registerKeydown<KeyDownEvent>(el,  evt => {
 
+     let isCapsLock = evt.getModifierState("CapsLock");
+     let isUpperCase = evt.shiftKey || isCapsLock;
+
      return {
        code: evt.code,
        key: evt.key,
        altKey: evt.altKey,
        metaKey: evt.metaKey,
        shiftKey: evt.shiftKey,
-       capsLock: evt.getModifierState("CapsLock"),
+       capsLock: isCapsLock,
+       isUpperCase,
        rightMetaKey: evt.metaKey && rightMeta,
        leftMetaKey: evt.metaKey && leftMeta,
        preventDefault: () => evt.preventDefault()
@@ -45,8 +49,6 @@ export module InputEvent {
 
       if (evt.metaKey) {
         if (evt.altKey) {
-          let isUppercase = evt.shiftKey || evt.capsLock;
-
           let fragment = handler(evt);
 
           if (fragment !== null) {

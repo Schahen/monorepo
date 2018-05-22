@@ -8,5 +8,6 @@ export type KeyDownEvent = {
   leftMetaKey: boolean,
   shiftKey: boolean,
   capsLock: boolean,
+  isUpperCase: boolean,
   preventDefault: () => void;
 }
