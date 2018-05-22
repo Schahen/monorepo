@@ -8,7 +8,7 @@ export let germanLetterHandler = ((): LetterHandler => (data: KeyDownEvent): str
   if (code == "KeyS") {
     return isUpperCase ? 'Sch' : 'sch';
   } else if (code == "KeyT") {
-    return isUpperCase ? 'st' : 'st';
+    return isUpperCase ? 'St' : 'st';
   } else if (code == "KeyO") {
     return isUpperCase ? 'Ö' : 'ö';
   } else if (code == "KeyU") {
