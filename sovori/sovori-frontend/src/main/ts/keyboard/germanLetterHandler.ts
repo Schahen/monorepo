@@ -35,7 +35,15 @@ export let germanLetterHandler = ((): LetterHandler => (data: KeyDownEvent): str
   } else if (code == "KeyH") {
     return isUpperCase ? 'Eh' : 'eh';
   } else if (code == "KeyM") {
+    if (rightMetaKey) {
+      return isUpperCase ? 'Me' : 'me';
+    }
     return isUpperCase ? 'Em' : 'em';
+  } else if (code == "KeyL") {
+    if (rightMetaKey) {
+      return isUpperCase ? 'Le' : 'le';
+    }
+    return isUpperCase ? 'el' : 'el';
   } else if (code == "KeyN") {
     if (rightMetaKey) {
       return isUpperCase ? 'Ne' : 'ne';
