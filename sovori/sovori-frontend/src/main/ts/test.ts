@@ -8,9 +8,10 @@ import {Footer} from "./Footer.js";
 import {findById} from "./dom/find.js";
 import {Progress} from "./Progress.js";
 import {CourseEvents} from "./events/CourseEvents.js";
+import {QuestionRecord} from "./QuestionRecord.js";
 
 export class Test {
-  data: TestRecord[] = [];
+  data: QuestionRecord[] = [];
   questionElement: HTMLElement;
   answerEditor: Editor;
   stats: Statistics;
@@ -21,7 +22,7 @@ export class Test {
   private progress: Progress;
 
   constructor(courseId: string, data: TestRecord[]) {
-    this.data = data;
+    this.data = data.map(question => ({question, answeredWrong: 0}))
     this.courseId = courseId;
     this.questionElement = findById<HTMLElement>("question");
     this.stats = new Statistics();

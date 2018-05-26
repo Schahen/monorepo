@@ -1,19 +1,20 @@
-import {TestRecord} from "crossplatform/TestRecord.js";
+import {QuestionRecord} from "./QuestionRecord.js";
 
 
 export class Question {
-  constructor(private testRecord: TestRecord) {}
+  constructor(private testRecord: QuestionRecord) {
+  }
 
   get question() {
-    return this.testRecord.q;
+    return this.testRecord.question.q;
   }
 
   get answer() {
-    return this.testRecord.a;
+    return this.testRecord.question.a;
   }
 
   get id() {
-    return this.testRecord.id;
+    return this.testRecord.question.id;
   }
 
   check(givenAnswer: string): boolean {
