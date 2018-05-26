@@ -1,21 +1,35 @@
-import {QuestionRecord} from "./QuestionRecord.js";
-
+import {TestRecord} from "crossplatform/TestRecord.js";
 
 export class Question {
-  constructor(private testRecord: QuestionRecord) {
+
+  private questionRecord: TestRecord;
+  answeredWrong: number = 0;
+  answeredRight: number = 0;
+
+  constructor(questionRecord: TestRecord) {
+    this.questionRecord = questionRecord;
   }
 
   get question() {
-    return this.testRecord.question.q;
+    return this.questionRecord.q;
   }
 
   get answer() {
-    return this.testRecord.question.a;
+    return this.questionRecord.a;
   }
 
   get id() {
-    return this.testRecord.question.id;
+    return this.questionRecord.id;
   }
+
+  countWrongAnswer() {
+    this.answeredWrong++;
+  }
+
+  countRightAnswer() {
+    this.answeredRight++;
+  }
+
 
   check(givenAnswer: string): boolean {
     let givenAnswerNormalized = givenAnswer.trim();

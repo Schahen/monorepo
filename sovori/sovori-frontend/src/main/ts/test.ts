@@ -8,10 +8,9 @@ import {Footer} from "./Footer.js";
 import {findById} from "./dom/find.js";
 import {Progress} from "./Progress.js";
 import {CourseEvents} from "./events/CourseEvents.js";
-import {QuestionRecord} from "./QuestionRecord.js";
 
 export class Test {
-  data: QuestionRecord[] = [];
+  data: Question[] = [];
   questionElement: HTMLElement;
   answerEditor: Editor;
   stats: Statistics;
@@ -22,7 +21,7 @@ export class Test {
   private progress: Progress;
 
   constructor(courseId: string, data: TestRecord[]) {
-    this.data = data.map(question => ({question, answeredWrong: 0}))
+    this.data = data.map(questionRecord => new Question(questionRecord));
     this.courseId = courseId;
     this.questionElement = findById<HTMLElement>("question");
     this.stats = new Statistics();
@@ -56,21 +55,23 @@ export class Test {
     });
 
 
-    CourseEvents.RIGHT_ANSWER.on(() => {
+    CourseEvents.RIGHT_ANSWER.on(question => {
       this.stats.registerRight();
       this.questionElement.classList.add("is-correct");
       this.showStats();
       this.ask();
 
       this.progress.updateCount();
+      question.countRightAnswer();
     });
 
-    CourseEvents.WRONG_ANSWER.on(() => {
+    CourseEvents.WRONG_ANSWER.on(question => {
       this.stats.registerWrong();
       this.questionElement.classList.add("is-incorrect");
       this.showStats();
 
       this.progress.updateTotal();
+      question.countWrongAnswer();
     });
 
     this.questionDialog.onSave(record => {
@@ -98,8 +99,8 @@ export class Test {
 
 
   private nextQuestion(): Question {
-    let testRecord = this.data[Math.floor(Math.random() * this.data.length)];
-    return new Question(testRecord);
+    let question = this.data[Math.floor(Math.random() * this.data.length)];
+    return question;
   }
 
   private check(givenAnswer: string) {
