@@ -45,8 +45,6 @@ export module InputEvent {
 
   export function resolveLetter(event: RegisteredEvent<KeyDownEvent>, handler: LetterHandler): RegisteredEvent<string|undefined> {
     return event.on(evt => {
-      console.log(evt);
-
       if (evt.metaKey) {
         if (evt.altKey) {
           let fragment = handler(evt);

@@ -20,6 +20,8 @@ export class Test {
   private questionDialog: EditRecordDialog;
   private progress: Progress;
 
+  private totalBalance: number = 0;
+
   constructor(courseId: string, data: TestRecord[]) {
     this.data = data.map(questionRecord => new Question(questionRecord));
     this.courseId = courseId;
@@ -63,6 +65,9 @@ export class Test {
 
       this.progress.updateCount();
       question.countRightAnswer();
+
+      this.totalBalance--;
+      console.log(question.getLearningRatio());
     });
 
     CourseEvents.WRONG_ANSWER.on(question => {
@@ -72,6 +77,9 @@ export class Test {
 
       this.progress.updateTotal();
       question.countWrongAnswer();
+
+      this.totalBalance++;
+      console.log(question.getLearningRatio());
     });
 
     this.questionDialog.onSave(record => {

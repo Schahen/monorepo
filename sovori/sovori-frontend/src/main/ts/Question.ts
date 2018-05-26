@@ -30,6 +30,12 @@ export class Question {
     this.answeredRight++;
   }
 
+  getLearningRatio(): number {
+    let right = this.answeredRight === 0? 0.9 : this.answeredRight;
+    let wrong = this.answeredWrong;
+
+    return wrong / right;
+  }
 
   check(givenAnswer: string): boolean {
     let givenAnswerNormalized = givenAnswer.trim();
