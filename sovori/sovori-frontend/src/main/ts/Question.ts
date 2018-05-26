@@ -31,10 +31,11 @@ export class Question {
   }
 
   getLearningRatio(): number {
-    let right = this.answeredRight === 0? 0.9 : this.answeredRight;
-    let wrong = this.answeredWrong;
+    if (this.answeredRight === 0) {
+      return (this.answeredWrong + 1);
+    }
 
-    return wrong / right;
+    return (this.answeredWrong / this.answeredRight) + 1;
   }
 
   check(givenAnswer: string): boolean {

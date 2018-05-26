@@ -20,7 +20,7 @@ export class Test {
   private questionDialog: EditRecordDialog;
   private progress: Progress;
 
-  private totalBalance: number = 0;
+  private totalRatio: number;
 
   constructor(courseId: string, data: TestRecord[]) {
     this.data = data.map(questionRecord => new Question(questionRecord));
@@ -34,6 +34,7 @@ export class Test {
 
     this.progress = new Progress(findById<HTMLElement>('progress'));
 
+    this.totalRatio = data.length;
     this.initEvents();
   }
 
@@ -61,13 +62,14 @@ export class Test {
       this.stats.registerRight();
       this.questionElement.classList.add("is-correct");
       this.showStats();
-      this.ask();
 
       this.progress.updateCount();
-      question.countRightAnswer();
 
-      this.totalBalance--;
-      console.log(question.getLearningRatio());
+      this.totalRatio -= question.getLearningRatio();
+      question.countRightAnswer();
+      this.totalRatio += question.getLearningRatio();
+
+      this.ask();
     });
 
     CourseEvents.WRONG_ANSWER.on(question => {
@@ -76,10 +78,12 @@ export class Test {
       this.showStats();
 
       this.progress.updateTotal();
-      question.countWrongAnswer();
 
-      this.totalBalance++;
-      console.log(question.getLearningRatio());
+      this.totalRatio -= question.getLearningRatio();
+      question.countWrongAnswer();
+      this.totalRatio += question.getLearningRatio();
+
+      console.log("WRONG ASNWER", question.getLearningRatio(), this.totalRatio);
     });
 
     this.questionDialog.onSave(record => {
@@ -107,7 +111,21 @@ export class Test {
 
 
   private nextQuestion(): Question {
-    let question = this.data[Math.floor(Math.random() * this.data.length)];
+
+    let random = Math.random() * this.totalRatio;
+
+    let index: number = Math.floor(Math.random() * this.data.length);
+    for (let i = 0, len = this.data.length; i < len; i++) {
+      let question = this.data[i];
+      let weight = question.getLearningRatio();
+      random -= weight;
+      if (random <= 0) {
+        index = i;
+        break;
+      }
+    }
+
+    let question = this.data[index];
     return question;
   }
 
