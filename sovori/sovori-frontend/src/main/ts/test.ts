@@ -8,6 +8,7 @@ import {Footer} from "./Footer.js";
 import {findById} from "./dom/find.js";
 import {Progress} from "./Progress.js";
 import {CourseEvents} from "./events/CourseEvents.js";
+import {QuestionCheckFailed} from "./QuestionCheckResult";
 
 export class Test {
   data: Question[] = [];
@@ -39,7 +40,7 @@ export class Test {
   }
 
   private showStats() {
-    console.log(`total: ${this.stats.total}: ${this.stats.wrong}:${this.stats.right}`)
+    //console.log(`total: ${this.stats.total}: ${this.stats.wrong}:${this.stats.right}`)
   }
 
   private initEvents() {
@@ -131,9 +132,12 @@ export class Test {
 
   private check(givenAnswer: string) {
     if (this.currentQuestion) {
-      if (this.currentQuestion.check(givenAnswer).passed()) {
+      const questionResult = this.currentQuestion.check(givenAnswer);
+      if (questionResult.passed()) {
         CourseEvents.RIGHT_ANSWER.trigger(this.currentQuestion);
       } else {
+        let questionFailed = <QuestionCheckFailed>questionResult;
+        console.log("FAILED", questionFailed.gootPrefix, questionFailed.rest);
         CourseEvents.WRONG_ANSWER.trigger(this.currentQuestion);
       }
     }

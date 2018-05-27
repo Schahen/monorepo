@@ -14,4 +14,8 @@ export class QuestionCheckFailed implements QuestionCheckResult {
   passed(): boolean {
     return false;
   }
+
+
+  constructor(public gootPrefix: string, public rest: string) {
+  }
 }
