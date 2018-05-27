@@ -83,8 +83,6 @@ export class Test {
       this.totalRatio -= question.getLearningRatio();
       question.countWrongAnswer();
       this.totalRatio += question.getLearningRatio();
-
-      console.log("WRONG ASNWER", question.getLearningRatio(), this.totalRatio);
     });
 
     this.questionDialog.onSave(record => {
@@ -137,7 +135,9 @@ export class Test {
         CourseEvents.RIGHT_ANSWER.trigger(this.currentQuestion);
       } else {
         let questionFailed = <QuestionCheckFailed>questionResult;
-        console.log("FAILED", questionFailed.gootPrefix, questionFailed.rest);
+
+        console.log("%s%c%s", questionFailed.gootPrefix, "background-color: rgb(255, 0, 0, 0.2)", questionFailed.rest)
+
         CourseEvents.WRONG_ANSWER.trigger(this.currentQuestion);
       }
     }
