@@ -131,10 +131,10 @@ export class Test {
 
   private check(givenAnswer: string) {
     if (this.currentQuestion) {
-      if (!this.currentQuestion.check(givenAnswer)) {
-        CourseEvents.WRONG_ANSWER.trigger(this.currentQuestion);
-      } else {
+      if (this.currentQuestion.check(givenAnswer).passed()) {
         CourseEvents.RIGHT_ANSWER.trigger(this.currentQuestion);
+      } else {
+        CourseEvents.WRONG_ANSWER.trigger(this.currentQuestion);
       }
     }
   }

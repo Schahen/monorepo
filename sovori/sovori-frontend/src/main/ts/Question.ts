@@ -1,4 +1,5 @@
 import {TestRecord} from "crossplatform/TestRecord.js";
+import {QuestionCheckFailed, QuestionCheckPassed, QuestionCheckResult} from "./QuestionCheckResult.js";
 
 export class Question {
 
@@ -36,13 +37,13 @@ export class Question {
     return Question.NORMAL_WEIGHT + Math.max(2 * this.answeredWrong - this.answeredRight, 1);
   }
 
-  check(givenAnswer: string): boolean {
+  check(givenAnswer: string): QuestionCheckResult {
     let givenAnswerNormalized = givenAnswer.trim();
 
     if (this.answer === givenAnswerNormalized) {
-      return true;
+      return new QuestionCheckPassed();
     }
 
-    return false;
+    return new QuestionCheckFailed();
   }
 }
