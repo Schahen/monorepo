@@ -1,9 +1,4 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@org_dropbox_rules_node//node:defs.bzl", "node_internal_module")
-
-node_internal_module(
-    name = "module_a_nm",
-    package_json = "package.json", # label to the 'package.json' file to use directly
-)
+filegroup(name = "node_modules", srcs = glob(["node_modules/**/*"]))
 

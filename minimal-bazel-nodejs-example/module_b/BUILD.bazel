@@ -1,8 +1,12 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@org_dropbox_rules_node//node:defs.bzl", "node_binary")
+#filegroup(name = "node_modules", srcs = glob(["node_modules/**/*"]))
 
-node_binary(
-  name = "ping",
-  main = ":index.js"
+load("@nodejs//:defs.bzl", "nodejs_binary")
+#
+nodejs_binary(
+    name = "bar",
+    entry_point = "bin/ping",
+    # Ordinarily this defaults to //:node_modules
+    node_modules = "@ping//:node_modules"
 )
