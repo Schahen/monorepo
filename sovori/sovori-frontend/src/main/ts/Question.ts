@@ -2,6 +2,8 @@ import {TestRecord} from "crossplatform/TestRecord.js";
 
 export class Question {
 
+  public static NORMAL_WEIGHT = 10;
+
   private questionRecord: TestRecord;
   answeredWrong: number = 0;
   answeredRight: number = 0;
@@ -31,11 +33,7 @@ export class Question {
   }
 
   getLearningRatio(): number {
-    if (this.answeredRight === 0) {
-      return (this.answeredWrong + 1);
-    }
-
-    return (this.answeredWrong / this.answeredRight) + 1;
+    return Question.NORMAL_WEIGHT + Math.max(2 * this.answeredWrong - this.answeredRight, 1);
   }
 
   check(givenAnswer: string): boolean {

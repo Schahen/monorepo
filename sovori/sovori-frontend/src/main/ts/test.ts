@@ -34,7 +34,7 @@ export class Test {
 
     this.progress = new Progress(findById<HTMLElement>('progress'));
 
-    this.totalRatio = data.length;
+    this.totalRatio = data.length * Question.NORMAL_WEIGHT;
     this.initEvents();
   }
 
