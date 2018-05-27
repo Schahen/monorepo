@@ -38,7 +38,9 @@ export class Question {
   }
 
   private normalize(message: string): string {
-    return message.trim();
+    return message.trim()
+      .replace(/\n/, ' ')
+      .replace(/\s\s+/g, ' ');
   }
 
   check(givenAnswer: string): QuestionCheckPassed | QuestionCheckFailed {
@@ -77,7 +79,7 @@ export class Question {
     if (passed) {
       return new QuestionCheckPassed();
     } else {
-      return new QuestionCheckFailed(goodPrefix, rest);
+      return new QuestionCheckFailed(goodPrefix, rest, answer);
     }
 
   }

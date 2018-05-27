@@ -16,6 +16,6 @@ export class QuestionCheckFailed implements QuestionCheckResult {
   }
 
 
-  constructor(public gootPrefix: string, public rest: string) {
+  constructor(public gootPrefix: string, public rest: string, public expectedAnswer: string) {
   }
 }

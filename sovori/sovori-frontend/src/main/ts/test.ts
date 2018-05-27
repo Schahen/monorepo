@@ -136,7 +136,11 @@ export class Test {
       } else {
         let questionFailed = <QuestionCheckFailed>questionResult;
 
-        console.log("%s%c%s", questionFailed.gootPrefix, "background-color: rgb(255, 0, 0, 0.2)", questionFailed.rest)
+        console.group("wrong answer");
+        console.log("%s%c%s", questionFailed.gootPrefix, "background-color: rgb(255, 0, 0, 0.2)", questionFailed.rest);
+        console.log(questionFailed.expectedAnswer);
+        console.groupEnd();
+
 
         CourseEvents.WRONG_ANSWER.trigger(this.currentQuestion);
       }
