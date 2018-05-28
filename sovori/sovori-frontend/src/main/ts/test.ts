@@ -25,6 +25,8 @@ export class Test {
 
   constructor(courseId: string, data: TestRecord[]) {
     this.data = data.map(questionRecord => new Question(questionRecord));
+    console.log("total:%c %i %cwords", 'font-weight: bold', this.data.length, 'font-weight: normal');
+
     this.courseId = courseId;
     this.questionElement = findById<HTMLElement>("question");
     this.stats = new Statistics();
