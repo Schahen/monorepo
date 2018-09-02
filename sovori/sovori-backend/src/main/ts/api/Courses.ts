@@ -1,7 +1,7 @@
 import * as low from 'lowdb';
+import {LowdbSync} from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 import * as path from "path";
-import {AdapterSync, LowdbSync} from "lowdb";
 import {getDataDir} from "./dataDir";
 
 export class Courses {
@@ -9,7 +9,10 @@ export class Courses {
   private db:LowdbSync<any>;
 
   constructor() {
-    this.db = low(new FileSync(path.resolve(getDataDir(), "courses.json")));
+
+    const coursesDataFilePath = path.resolve(getDataDir(), "..", "courses.json");
+
+    this.db = low(new FileSync(coursesDataFilePath));
   }
 
   get(): any {
