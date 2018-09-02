@@ -57,6 +57,10 @@ async function main() {
 
     registerPath(app, '/resources', pathToStatic);
 
+    app.get("/courses", function (req, res) {
+      res.sendFile(path.resolve(pathToStatic, "courses.html"));
+    });
+
     app.get("/courses/:course", function (req, res) {
       res.sendFile(path.resolve(pathToStatic, "index.html"));
     });
